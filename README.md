@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/patwey/traffic_spy.png?label=ready&title=Ready)](https://waffle.io/patwey/traffic_spy)
 ## Traffic Spy
 A group project to create a web traffic tracking and analysis tool.
 
