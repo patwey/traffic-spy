@@ -1,7 +1,7 @@
 ## Traffic Spy
 A group project to create a web traffic tracking and analysis tool.
 
-Group members include:
+### Group members include:
 * Aaron Careaga
 * Tyler Komoroske
 * Pat Wey
