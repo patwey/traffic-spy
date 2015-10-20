@@ -5,16 +5,10 @@ module TrafficSpy
     end
 
     post '/sources' do
-      app = App.new(params[:app])
-      # status, body = AppCreator.process(params[:app])
-      # status(status)
-      # body(body)
-      if app.save
-        'app created'
-      else
-        status 400
-        app.errors.full_messages.join(', ')
-      end
+      # require 'pry'; binding.pry
+      status, body = TrafficSpy::SourceCreator.process(params)
+      status(status)
+      body(body)
     end
 
     not_found do

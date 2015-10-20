@@ -1,6 +1,6 @@
 require './test/test_helper'
 
-class RegisterAppTest < Minitest::Test
+class RegisterSourceTest < Minitest::Test
   include Rack::Test::Methods
 
   def app
@@ -8,29 +8,47 @@ class RegisterAppTest < Minitest::Test
   end
 
   def test_cannot_register_app_without_identifier
-    total = App.count
-    post '/sources', {app: {root_url: 'http://jumpstartlab.com'}}
+    total = TrafficSpy::Source.count
+    post '/sources', {rootUrl: 'http://jumpstartlab.com'}
 
-    assert_equal total, App.count
+    assert_equal total, TrafficSpy::Source.count
     assert_equal 400, last_response.status
     assert_equal "Identifier can't be blank", last_response.body
   end
 
   def test_cannot_register_app_without_root_url
-    total = App.count
-    post '/sources', {app: {identifier: 'jumpstartlab'}}
+    skip
+    total = TrafficSpy::Source.count
+    post '/sources', {identifier: 'jumpstartlab'}
 
-    assert_equal total, App.count
+    assert_equal total, TrafficSpy::Source.count
     assert_equal 400, last_response.status
     assert_equal "Root url can't be blank", last_response.body
   end
 
   def test_cannot_register_app_with_empty_params
-    total = App.count
-    post '/sources', {app: {}}
-    
-    assert_equal total, App.count
+    skip
+    total = TrafficSpy::Source.count
+    post '/sources', {}
+
+    assert_equal total, TrafficSpy::Source.count
     assert_equal 400, last_response.status
     assert_equal "Identifier can't be blank, Root url can't be blank", last_response.body
+  end
+
+  def test_cannot_register_app_if_identifier_already_exists
+    skip
+    post '/sources', {identifier: 'jumpstartlab',
+                      rootUrl:   'http://jumpstartlab.com'}
+
+    assert TrafficSpy::Source.find_by(identifier: 'jumpstartlab')
+
+    total = TrafficSpy::Source.count
+    post '/sources', {identifier: 'jumpstartlab',
+                      rootUrl:   'http://turing.io'}
+
+    assert_equal total, TrafficSpy::Source.count
+    assert_equal 403, last_response.status
+    assert_equal 'Identifer already exists', last_response.body
   end
 end
