@@ -11,7 +11,9 @@ module TrafficSpy
     end
 
     post '/sources/:id/data' do |id|
-      require 'pry'; binding.pry
+      status, body = TrafficSpy::DataCreator.process(params)
+      status(status)
+      body(body)
     end
 
     not_found do
