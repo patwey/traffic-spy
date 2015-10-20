@@ -8,7 +8,8 @@ module TrafficSpy
       else
         source = Source.new(data)
         if source.save
-          body = 'app created'
+          # body['identifier'] = data[:identifier]
+          body = "{'identifier':'#{source.identifier}'}"
         else
           status = 400
           body = source.errors.full_messages.join(', ')
