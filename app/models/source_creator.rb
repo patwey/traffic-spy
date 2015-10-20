@@ -1,23 +1,31 @@
 module TrafficSpy
   class SourceCreator
     def self.process(data)
-      # downcase values before inserting!?
-      # what will the params key look like for :rootUrl?
-      #if App.exists?(identifier: data[:identifier])
-        data = format_data(data)
-        app = Source.new(data)
-        if app.save
+      data = format_data(data)
+      if identifier_exists?(data)
+        status = 403
+        body = 'Identifier already exists'
+      else
+        source = Source.new(data)
+        if source.save
           body = 'app created'
         else
           status = 400
-          body = app.errors.full_messages.join(', ')
+          body = source.errors.full_messages.join(', ')
         end
-        #end
-      return status, body
+      end
+      [status, body]
     end
 
     def self.format_data(data) # DataSanitizer?
-      { :root_url => data["rootUrl"] }
+      result = {}
+      result[:root_url] = data["rootUrl"].downcase if data["rootUrl"]
+      result[:identifier] = data["identifier"].downcase if data["identifier"]
+      result
+    end
+
+    def self.identifier_exists?(data)
+      Source.exists?(identifier: data[:identifier])
     end
   end
 end

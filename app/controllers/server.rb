@@ -5,7 +5,6 @@ module TrafficSpy
     end
 
     post '/sources' do
-      # require 'pry'; binding.pry
       status, body = TrafficSpy::SourceCreator.process(params)
       status(status)
       body(body)

@@ -17,7 +17,6 @@ class RegisterSourceTest < Minitest::Test
   end
 
   def test_cannot_register_app_without_root_url
-    skip
     total = TrafficSpy::Source.count
     post '/sources', {identifier: 'jumpstartlab'}
 
@@ -27,7 +26,6 @@ class RegisterSourceTest < Minitest::Test
   end
 
   def test_cannot_register_app_with_empty_params
-    skip
     total = TrafficSpy::Source.count
     post '/sources', {}
 
@@ -37,7 +35,6 @@ class RegisterSourceTest < Minitest::Test
   end
 
   def test_cannot_register_app_if_identifier_already_exists
-    skip
     post '/sources', {identifier: 'jumpstartlab',
                       rootUrl:   'http://jumpstartlab.com'}
 
@@ -49,6 +46,8 @@ class RegisterSourceTest < Minitest::Test
 
     assert_equal total, TrafficSpy::Source.count
     assert_equal 403, last_response.status
-    assert_equal 'Identifer already exists', last_response.body
+    assert_equal 'Identifier already exists', last_response.body
   end
+
+  def test_
 end
