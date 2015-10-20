@@ -10,6 +10,10 @@ module TrafficSpy
       body(body)
     end
 
+    post '/sources/:id/data' do |id|
+      require 'pry'; binding.pry
+    end
+
     not_found do
       erb :error
     end
