@@ -57,7 +57,17 @@ class SourceCreatorTest < Minitest::Test
     assert_equal "Identifier can't be blank, Root url can't be blank", body
   end
 
-  # test source created for valid request
-    # status 200
-    # body 'source created' ?
+  def test_source_created_for_valid_request
+    total = TrafficSpy::Source.count
+
+    params = {"identifier"=>"jumpstartlab", "rootUrl"=>"http://jumpstartlab.com"}
+    status, body = TrafficSpy::SourceCreator.process(params)
+    source = TrafficSpy::Source.all.first
+
+    assert_equal (total + 1), TrafficSpy::Source.count
+    assert_equal "http://jumpstartlab.com", source.root_url
+    assert_equal "jumpstartlab", source.identifier
+    assert_equal 200, status
+    assert_equal "{'identifier':'jumpstartlab'}", body
+  end
 end
