@@ -11,7 +11,6 @@ class ProccesRequestTest < Minitest::Test
     total = TrafficSpy::Payload.count
     TrafficSpy::SourceCreator.process({"rootUrl" => "http://jumpstartlab.com",
                                        "identifier" => 'jumpstartlab'})
-
     assert_equal 'jumpstartlab', TrafficSpy::Source.all.first.identifier
 
     post '/sources/jumpstartlab/data', {payload: ""}

@@ -56,5 +56,5 @@ class SourceCreatorTest < Minitest::Test
     assert_equal 400, status
     assert_equal "Identifier can't be blank, Root url can't be blank", body
   end
-  
+
 end
