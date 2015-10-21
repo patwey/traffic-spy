@@ -1,21 +1,34 @@
 module TrafficSpy
   class SourceCreator
+
     def self.process(data)
       data = format_data(data)
       if identifier_exists?(data)
-        status = 403
-        body = 'Identifier already exists'
+        state = [:identifier_exists]
       else
-        source = Source.new(data)
-        if source.save
-          # body['identifier'] = data[:identifier]
-          body = "{'identifier':'#{source.identifier}'}"
-        else
-          status = 400
-          body = source.errors.full_messages.join(', ')
-        end
+        state = create_source(data)
       end
-      [status, body]
+      response(state)
+    end
+
+    def self.create_source(data)
+      source = Source.new(data)
+      if source.save
+        [:source_created, source]
+      else
+        [:missing_attributes, source]
+      end
+    end
+
+    def self.response(state)
+      case state.first
+      when :identifier_exists
+        [403, 'Identifier already exists']
+      when :source_created
+        [200, "{'identifier':'#{state.last.identifier}'}"]
+      when :missing_attributes
+        [400, state.last.errors.full_messages.join(', ')]
+      end
     end
 
     def self.format_data(data) # DataSanitizer?
