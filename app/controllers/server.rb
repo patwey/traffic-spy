@@ -11,7 +11,7 @@ module TrafficSpy
     end
 
     post '/sources/:id/data' do |id|
-      status, body = TrafficSpy::DataCreator.process(params)
+      status, body = TrafficSpy::PayloadCreator.process(params)
       status(status)
       body(body)
     end

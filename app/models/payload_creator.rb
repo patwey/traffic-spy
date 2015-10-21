@@ -1,8 +1,8 @@
 module TrafficSpy
-  class DataCreator
-    def self.process(data)
-      if Source.find_by(identifier: data[:id]) # if the application is registered
-        if data[:payload].nil? || data[:payload].empty?
+  class PayloadCreator
+    def self.process(payload)
+      if Source.find_by(identifier: payload[:id]) # if the application is registered
+        if payload[:payload].nil? || payload[:payload].empty?
           status = 400
           body = 'Missing Payload'
         end
