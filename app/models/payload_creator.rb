@@ -14,3 +14,11 @@ module TrafficSpy
     end
   end
 end
+
+
+# Digest::SHA2.hexdigest 'payload'
+
+# class Shahmaker < ActiveRecord::Base
+#   validates :shah, uniqueness: { scope: :digest,
+#     message: "Request payload has already been recieved." }
+# end
