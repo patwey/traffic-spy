@@ -73,22 +73,6 @@ class ProccesRequestTest < Minitest::Test
     assert_equal (payload_total + 1), TrafficSpy::Payload.count
     assert_equal 200, last_response.status
     assert_equal 'Payload Created', last_response.body
-
-    payload = TrafficSpy::Payload.all.first
-
-    # # test_payload_is_created?
-    # assert_equal "2e0fb001e51eab0509f6c480b1be7fb337c99766d1fb0708135751b6f8573bdd", payload.sha
-    # # flexible source_id?
-    # assert_equal 1, payload.source_id
-    # assert_equal "http://jumpstartlab.com/blog", payload.url
-    # assert_equal "2013-02-16 21:38:28 -0700", payload.requested_at
-    # assert_equal 37, payload.responded_in
-    # assert_equal 'http://jumpstartlab.com', payload.referred_by
-    # assert_equal 'GET', payload.request_type
-    # assert_equal 'socialLogin', payload.event_name
-    # assert_equal 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17', payload.user_agent
-    # assert_equal '1920', payload.resolution_width
-    # assert_equal '1280', payload.resolution_height
   end
 
 
