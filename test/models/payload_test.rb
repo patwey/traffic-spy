@@ -16,7 +16,7 @@ class PayloadTest < Minitest::Test
 
     assert_equal "2e0fb001e51eab0509f6c480b1be7fb337c99766d1fb0708135751b6f8573bdd", payload.sha
     # flexible source_id?
-    assert_equal 1, payload.source_id
+    assert_equal 3, payload.source_id
     assert_equal "http://jumpstartlab.com/blog", payload.url
     assert_equal "2013-02-16 21:38:28 -0700", payload.requested_at
     assert_equal 37, payload.responded_in
