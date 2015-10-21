@@ -1,5 +1,8 @@
 require './test/test_helper'
+
 class SourceTest < Minitest::Test
+  include Rack::Test::Methods
+
   def test_source_attributes_are_stored
     total = TrafficSpy::Source.all.count
     source = TrafficSpy::Source.new({root_url: "http://turing.io",
