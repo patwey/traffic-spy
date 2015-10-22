@@ -25,14 +25,9 @@ class ViewApplicationDetailsTest < FeatureTest
   def test_user_can_view_most_requested_urls
     create_source
     create_payload({url: "http://jumpstartlab.com/tyler"})
-
     create_payload({url: 'http://jumpstartlab.com/blog'})
-
     create_payload({url: 'http://jumpstartlab.com/blog', requested_at: Time.now})
-#     As a registered user,
-#     when I visit http://localhost:9393/sources/IDENTIFIER,
-#     and the identifier exists,
-#     then I expect to see the application details
+
     visit '/sources/jumpstartlab'
     assert_equal '/sources/jumpstartlab', current_path
 
@@ -42,10 +37,51 @@ class ViewApplicationDetailsTest < FeatureTest
       assert has_content?("Most Requested URL's")
 
       within '#url-ranking' do
-        assert has_content?('http://jumpstartlab.com/blog: 2')
-        assert has_content?('http://jumpstartlab.com/blog: 1')
+        assert has_content?('http://jumpstartlab.com/blog')
+        assert has_content?('http://jumpstartlab.com/tyler')
       end
-      save_and_open_page
+    end
+  end
+
+  def test_user_can_view_web_browser_breakdown
+    create_source
+    create_payload({url: "http://jumpstartlab.com/tyler"})
+    create_payload({url: 'http://jumpstartlab.com/blog'})
+    create_payload({url: 'http://jumpstartlab.com/blog', requested_at: Time.now})
+
+    visit '/sources/jumpstartlab'
+    assert_equal '/sources/jumpstartlab', current_path
+
+    refute page.has_content?("Identifier doesn't exist")
+
+    within '#application-details' do
+      assert has_content?("Web Browser Breakdown")
+
+      within '#web-browser-breakdown' do
+        assert has_content?('Chrome 2')
+        assert has_content?('Firefox 1')
+      end
+    end
+  end
+
+  def test_user_can_view_operating_system_breakdown
+    create_source
+    create_payload({url: "http://jumpstartlab.com/tyler"})
+    create_payload({url: 'http://jumpstartlab.com/blog'})
+    create_payload({url: 'http://jumpstartlab.com/blog', requested_at: Time.now})
+
+    visit '/sources/jumpstartlab'
+    assert_equal '/sources/jumpstartlab', current_path
+
+    refute page.has_content?("Identifier doesn't exist")
+
+    within '#application-details' do
+      assert has_content?("Operating System Breakdown")
+
+      within '#os-breakdown' do
+        assert has_content?('Apple iOS 2')
+        assert has_content?('Windows 95 1')
+      end
     end
   end
 
