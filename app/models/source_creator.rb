@@ -2,7 +2,7 @@ module TrafficSpy
   class SourceCreator
 
     def self.process(data)
-      data = format_data(data)
+      data = DataSanitizer.format_source(data)
       if identifier_exists?(data)
         state = [:identifier_exists]
       else
@@ -28,14 +28,9 @@ module TrafficSpy
         [200, "{'identifier':'#{state.last.identifier}'}"]
       when :missing_attributes
         [400, state.last.errors.full_messages.join(', ')]
+      else
+        raise "Unexpected State"
       end
-    end
-
-    def self.format_data(data) # DataSanitizer?
-      result = {}
-      result[:root_url] = data["rootUrl"].downcase if data["rootUrl"]
-      result[:identifier] = data["identifier"].downcase if data["identifier"]
-      result
     end
 
     def self.identifier_exists?(data)

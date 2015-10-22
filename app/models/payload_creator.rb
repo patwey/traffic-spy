@@ -1,56 +1,43 @@
-require 'json'
-
 module TrafficSpy
   class PayloadCreator
     def self.process(data)
-      if Source.find_by(identifier: data['id']) # if the source exists
-        if data['payload'].nil? || data['payload'].empty? # if the payload doesn't exist
-          status = 400
-          body = 'Missing Payload'
-
-        else # if the payload exists
-          data = format_data(data)
-          payload = Payload.new(data) # validate each attribute exists on the model
-          if payload.save # if the payload is unique
-            status = 200 # for testing purposes
-            body = 'Payload Created'
-          else # if the payload has already been recieved
-            status = 403
-            body = "Already Received Request"
-          end
-
-        end
-
-      else # if the source doesn't exist
-        status = 403
-        body = "Application Not Registered"
+      if source_exists?(data['id'])
+        state = create_payload(data)
+      else
+        state = :not_registered
       end
-
-      # return the status and body
-      [status, body]
+      response(state)
     end
 
-    def self.parse_json(payload)
-      JSON.parse(payload)
+    def self.response(state)
+      case state
+      when :missing_payload
+        [400, 'Missing Payload']
+      when :payload_created
+        [200, 'Payload Created']
+      when :repeat_request
+        [403, 'Already Received Request']
+      when :not_registered
+        [403, 'Application Not Registered']
+      else
+        raise 'Unexpected State'
+      end
     end
 
-    def self.format_data(data)
-      formatted = {}
-      formatted[:sha] = Digest::SHA2.hexdigest(data['payload'])
-      formatted[:source_id] = Source.where(identifier: data['id']).pluck('id').first
-      payload = parse_json(data['payload'])
+    def self.create_payload(data)
+      return :missing_payload if missing_payload?(data['payload'])
+      data = DataSanitizer.format_payload(data)
+      payload = Payload.new(data) # validate each attribute exists on the model
+      return :repeat_request unless payload.save # if payload isn't unique
+      :payload_created
+    end
 
-      formatted[:url] = payload.fetch("url")
-      formatted[:requested_at] = payload.fetch("requestedAt")
-      formatted[:responded_in] = payload.fetch("respondedIn")
-      formatted[:referred_by] = payload.fetch("referredBy")
-      formatted[:request_type] = payload.fetch("requestType")
-      formatted[:event_name] = payload.fetch("eventName")
-      formatted[:user_agent] = payload.fetch("userAgent")
-      formatted[:resolution_width] = payload.fetch("resolutionWidth")
-      formatted[:resolution_height] = payload.fetch("resolutionHeight")
+    def self.source_exists?(id)
+      Source.find_by(identifier: id)
+    end
 
-      formatted
+    def self.missing_payload?(payload)
+      payload.nil? || payload.empty?
     end
   end
 end
