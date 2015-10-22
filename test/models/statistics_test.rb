@@ -63,4 +63,17 @@ class StatisticsTest < Minitest::Test
     assert_equal expected, TrafficSpy::Statistics.application_details(payloads)
   end
 
+  def test_get_ranked_resolution_returns_nested_array_of_resolutions_and_count
+    create_source
+    payloads = []
+    payloads << create_payload({resolution_height: 10,
+                                resolution_width: 10 })
+    payloads << create_payload({resolution_height: 10,
+                                                            resolution_width: 10 })
+    payloads << create_payload({url: "jumpstartlab.com/home"})
+    payloads << create_payload({url: "jumpstartlab.com/home"})
+
+    ranked_resolutions = TrafficSpy::Statistics.get_ranked_resolutions(payloads)
+  end
+
 end
