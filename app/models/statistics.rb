@@ -11,8 +11,8 @@ module TrafficSpy
 
     def self.order_collection(collection)
       collection_count = Hash.new(0)
-      collection.each do |item|
-        collection_count[item] += 1
+      collection.each do |element|
+        collection_count[element] += 1
       end
       collection_count.sort_by { |k, v| v}.reverse
     end

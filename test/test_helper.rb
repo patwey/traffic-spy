@@ -20,13 +20,13 @@ class Minitest::Test
   def teardown
     DatabaseCleaner.clean
   end
-  
+
   def create_source
     params = {"identifier"=>"jumpstartlab", "rootUrl"=>"http://jumpstartlab.com"}
     TrafficSpy::SourceCreator.process(params)
   end
 
-  def create_payload(values)
+  def create_payload(values = {})
     values[:url] = 'http://jumpstartlab.com/blog' if values[:url].nil?
     values[:user_agent] = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17" if values[:user_agent].nil?
     values[:resolution_width] = "1920" if values[:resolution_width].nil?
@@ -40,6 +40,7 @@ class Minitest::Test
               "captures"=>["jumpstartlab"],
               "id"=>"jumpstartlab"}
     TrafficSpy::PayloadCreator.process(params)
+    TrafficSpy::Payload.all.last
   end
 end
 
