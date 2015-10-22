@@ -16,6 +16,14 @@ module TrafficSpy
       body(body)
     end
 
+    get '/sources/:id' do |id|
+      # validate id exists? -> class
+        # it exists:
+        erb :application_details
+        # it does not:
+          # not_found
+    end
+
     not_found do
       erb :error
     end
