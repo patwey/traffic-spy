@@ -16,7 +16,9 @@ module TrafficSpy
       body(body)
     end
 
-    get '/sources/:id' do |id|
+    get '/sources/:identifier' do |identifier|
+      #@payloads = Payload.find_by(source_id: source.id)
+      # @payloads = TrafficSpy::PayloadRetriever.retrieve(identifier)
       # validate id exists? -> class
         # it exists:
         erb :application_details
