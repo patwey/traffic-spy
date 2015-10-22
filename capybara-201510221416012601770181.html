@@ -1,4 +1,27 @@
-<div id="application-details">
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>TrafficSpy</title>
+  <link href='/stylesheets/bootstrap.css' rel='stylesheet'>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+  <div class="container">
+    <div class='navbar navbar-default'>
+      <div class='row'>
+          <a href='/' class='navbar-brand col-md-offset-1'>Traffic Spy</a>
+        <div class='col-md-4 col-md-offset-4'>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href = "/"><i class='glyphicon glyphicon-home'></i></a></li>
+            <li><a href = "#">New User</a></li>
+            <li><a href = "#">Sources</a></li>
+            <li><a href = "#">Payloads</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+​
+  <div id="application-details">
 
   <!-- Data from URLs -->
   <!-- make link for URL that points to payload hash, link to aggregate event data (see last 2 bullets on app details) -->
@@ -12,12 +35,17 @@
     </thead>
 ​
     <tbody>
-      <% urls.each do |url, count| %>
+      
       <tr>
-        <td><%= url %></td>
-        <td><%= count %></td>
+        <td>http://jumpstartlab.com/blog</td>
+        <td>2</td>
       </tr>
-      <% end %>
+      
+      <tr>
+        <td>http://jumpstartlab.com/tyler</td>
+        <td>1</td>
+      </tr>
+      
     </tbody>
   </table>
 
@@ -112,3 +140,10 @@
     </table>
 
   </div>
+
+  </div>
+  <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+  <script src='/javascripts/bootstrap.js'></script>
+</body>
+<html>
