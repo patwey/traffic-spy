@@ -26,7 +26,11 @@ module TrafficSpy
 
     def self.create_payload(data)
       return :missing_payload if missing_payload?(data['payload'])
+      sha = Digest::SHA2.hexdigest(data['payload'])
+      source_id = Source.where(identifier: data['id']).pluck('id').first
       data = DataSanitizer.format_payload(data)
+      data[:source_id] = source_id
+      data[:sha] = sha
       payload = Payload.new(data) # validate each attribute exists on the model
       return :repeat_request unless payload.save # if payload isn't unique
       :payload_created
