@@ -26,7 +26,10 @@ module TrafficSpy
 
     def self.create_payload(data)
       return :missing_payload if missing_payload?(data['payload'])
+      # sha = hash_payload(data['payload'])
       sha = Digest::SHA2.hexdigest(data['payload'])
+
+      # source_id = get_source_id(data['id'])
       source_id = Source.find_by(identifier: data["id"]).id
 
       data = DataSanitizer.format_payload(data)
@@ -34,16 +37,22 @@ module TrafficSpy
       data[:source_id] = source_id
       data[:sha] = sha
 
+      # data = UrlCreator.process(data)
       Url.find_or_create_by(url: data[:url])
-      data[:url_id] = Url.find_by(url: data[:url]).id
-      data.delete(:url)
 
+      # data = RequestCreator.process(data)
       RequestType.find_or_create_by(request_type: data[:request_type])
-      data[:request_type_id] = RequestType.find_by(request_type: data[:request_type]).id
-      data.delete(:request_type)
 
+      # data = EventNameCreator.process(data)
       EventName.find_or_create_by(event_name: data[:event_name])
+
+      # data[:url_id] = get_url_id(data)
+      data[:url_id] = Url.find_by(url: data[:url]).id
+      data[:request_type_id] = RequestType.find_by(request_type: data[:request_type]).id
       data[:event_name_id] = EventName.find_by(event_name: data[:event_name]).id
+
+      data.delete(:url)
+      data.delete(:request_type)
       data.delete(:event_name)
 
       payload = Payload.new(data) # validate each attribute exists on the model
