@@ -74,6 +74,8 @@ class StatisticsTest < Minitest::Test
     payloads << create_payload({url: "jumpstartlab.com/home"})
 
     ranked_resolutions = TrafficSpy::Statistics.get_ranked_resolutions(payloads)
+
+    assert_equal [], ranked_resolutions
   end
 
 end

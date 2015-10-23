@@ -39,5 +39,10 @@ module TrafficSpy
       raw_urls = payloads.map { |payload| TrafficSpy::Url.find_by(id: payload.url_id).url }
       order_collection(raw_urls)
     end
+
+    def self.get_ranked_resolutions(payloads)
+      # binding.pry
+      raw_screen_resolutions = payloads.map { |payload| (payload.resolution_height.to_i * payload.resolution_width.to_i) }
+    end
   end
 end
