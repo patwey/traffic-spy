@@ -26,37 +26,12 @@ module TrafficSpy
 
     def self.create_payload(data)
       return :missing_payload if missing_payload?(data['payload'])
-      # sha = hash_payload(data['payload'])
-      sha = Digest::SHA2.hexdigest(data['payload'])
-
-      # source_id = get_source_id(data['id'])
-      source_id = Source.find_by(identifier: data["id"]).id
 
       data = DataSanitizer.format_payload(data)
-
-      data[:source_id] = source_id
-      data[:sha] = sha
-
-      # data = UrlCreator.process(data)
-      Url.find_or_create_by(url: data[:url])
-
-      # data = RequestCreator.process(data)
-      RequestType.find_or_create_by(request_type: data[:request_type])
-
-      # data = EventNameCreator.process(data)
-      EventName.find_or_create_by(event_name: data[:event_name])
-
-      # data[:url_id] = get_url_id(data)
-      data[:url_id] = Url.find_by(url: data[:url]).id
-      data[:request_type_id] = RequestType.find_by(request_type: data[:request_type]).id
-      data[:event_name_id] = EventName.find_by(event_name: data[:event_name]).id
-
-      data.delete(:url)
-      data.delete(:request_type)
-      data.delete(:event_name)
+      data = link_foreign_keys(data)
 
       payload = Payload.new(data) # validate each attribute exists on the model
-      return :repeat_request unless payload.save # if payload isn't unique
+      return :repeat_request unless payload.save
       :payload_created
     end
 
@@ -68,6 +43,36 @@ module TrafficSpy
 
     def self.missing_payload?(payload)
       payload.nil? || payload.empty?
+    end
+
+    def self.get_source_id(identifier)
+      Source.find_by(identifier: identifier).id
+    end
+
+    def self.get_url_id(url)
+      Url.find_or_create_by(url: url).id
+    end
+
+    def self.get_request_type_id(request_type)
+      RequestType.find_or_create_by(request_type: request_type).id
+    end
+
+    def self.get_event_name_id(event_name)
+      EventName.find_or_create_by(event_name: event_name).id
+    end
+
+    def self.link_foreign_keys(data)
+      data[:source_id] = get_source_id(data[:identifier])
+      data[:url_id] = get_url_id(data[:url])
+      data[:request_type] = get_request_type_id(data[:request_type])
+      data[:event_name_id] = get_event_name_id(data[:event_name])
+      keys = [:identifier, :url, :request_type, :event_name]
+      delete_linked_data(data, keys)
+    end
+
+    def self.delete_linked_data(data, keys)
+      keys.each { |k| data.delete(k) }
+      data
     end
   end
 end

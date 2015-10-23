@@ -8,7 +8,7 @@ class DataSanitizerTest < Minitest::Test
             "id"=>"jumpstartlab"}
 
     formatted_payload = TrafficSpy::DataSanitizer.format_payload(data)
-    expected_keys = [:url, :requested_at, :responded_in,
+    expected_keys = [:sha, :identifier, :url, :requested_at, :responded_in,
                      :referred_by, :request_type, :event_name, :user_agent,
                      :resolution_width, :resolution_height].sort
 
@@ -22,7 +22,7 @@ class DataSanitizerTest < Minitest::Test
             "id"=>"jumpstartlab"}
 
     formatted_payload = TrafficSpy::DataSanitizer.format_payload(data)
-    expected_keys = [:url, :requested_at, :responded_in,
+    expected_keys = [:sha, :identifier, :url, :requested_at, :responded_in,
                      :referred_by, :request_type, :event_name, :user_agent,
                      :resolution_width, :resolution_height].sort
 
