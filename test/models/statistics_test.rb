@@ -69,13 +69,13 @@ class StatisticsTest < Minitest::Test
     payloads << create_payload({resolution_height: 10,
                                 resolution_width: 10 })
     payloads << create_payload({resolution_height: 10,
-                                                            resolution_width: 10 })
-    payloads << create_payload({url: "jumpstartlab.com/home"})
-    payloads << create_payload({url: "jumpstartlab.com/home"})
+                                resolution_width: 10 })
+    payloads << create_payload({resolution_width: 200,
+                                resolution_height: 1})
 
     ranked_resolutions = TrafficSpy::Statistics.get_ranked_resolutions(payloads)
 
-    assert_equal [], ranked_resolutions
+    assert_equal [[100, 2], [200, 1]], ranked_resolutions
   end
 
 end
