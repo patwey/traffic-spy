@@ -3,9 +3,11 @@ require 'json'
 module TrafficSpy
   class DataSanitizer
     def self.format_payload(data)
-      payload = parse_json(data['payload'])
       result = {}
+      payload = parse_json(data['payload'])
 
+      result[:sha] = sha(data['payload'])
+      result[:identifier] = data["id"]
       result[:url] = payload["url"]
       result[:requested_at] = payload["requestedAt"]
       result[:responded_in] = payload["respondedIn"]
@@ -35,6 +37,10 @@ module TrafficSpy
       result[:identifier] = data["identifier"]
 
       downcase_values(result)
+    end
+
+    def self.sha(string)
+      Digest::SHA2.hexdigest(string)
     end
 
     def self.downcase_values(data)
