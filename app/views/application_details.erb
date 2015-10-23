@@ -33,14 +33,12 @@
     </thead>
   ​
     <tbody>
+      <% browsers.each do |browser, count| %>
       <tr>
-        <td>Chrome</td>
-        <td>2</td>
+        <td><%= browser %></td>
+        <td><%= count %></td>
       </tr>
-      <tr>
-        <td>Firefox</td>
-        <td>1</td>
-      </tr>
+      <% end %>
     </tbody>
   </table>
 
@@ -55,14 +53,12 @@
   </thead>
 ​
   <tbody>
+    <% op_systems.each do |os, count| %>
     <tr>
-      <td>Apple iOS</td>
-      <td>2</td>
+      <td><%= os %></td>
+      <td><%= count %></td>
     </tr>
-    <tr>
-      <td>Windows 95</td>
-      <td>1</td>
-    </tr>
+    <% end %>
   </tbody>
 </table>
 

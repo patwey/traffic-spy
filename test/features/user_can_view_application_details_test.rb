@@ -46,8 +46,8 @@ class ViewApplicationDetailsTest < FeatureTest
       assert has_content?("Web Browser Breakdown")
 
       within '#web-browser-breakdown' do
-        assert has_content?('Chrome 2')
-        assert has_content?('Firefox 1')
+        assert has_content?('Safari 3')
+        # assert has_content?('Firefox 1')
       end
     end
   end
@@ -66,7 +66,6 @@ class ViewApplicationDetailsTest < FeatureTest
 
       within '#os-breakdown' do
         assert has_content?('Apple iOS 2')
-        assert has_content?('Windows 95 1')
       end
     end
   end
