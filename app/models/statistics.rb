@@ -47,5 +47,20 @@ module TrafficSpy
       raw_screen_resolutions = payloads.map { |payload| (payload.resolution_height.to_i * payload.resolution_width.to_i) }
       order_collection(raw_screen_resolutions)
     end
+
+    def self.get_avg_response_time_by_url(payloads)
+      urls = payloads.map { |payload| TrafficSpy::Url.find_by(id: payload.url_id) }.uniq
+      avg_response_time_by_url = {}
+      urls.each do |url|
+        response_times = []
+        payloads.each do |payload|
+          if payload[:url_id] == url.id
+            response_times << payload[:responded_in].to_f
+          end
+        end
+        avg_response_time_by_url[url.url] = response_times.reduce(:+) / response_times.size
+      end
+      avg_response_time_by_url.sort_by { |k, v| v }.reverse
+    end
   end
 end

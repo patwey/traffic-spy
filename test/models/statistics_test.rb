@@ -58,7 +58,7 @@ class StatisticsTest < Minitest::Test
     payloads << create_payload
     payloads << create_payload
 
-    expected = {:urls=>[["http://jumpstartlab.com/blog", 3]], :browsers=>[["Safari", 3]], :op_systems=>[["intel mac os x 10_8_2", 3]]}
+    expected = {:urls=>[["http://jumpstartlab.com/blog", 3]], :browsers=>[["Safari", 3]], :op_systems=>[["intel mac os x 10_8_2", 3]], :resolutions=>[[2457600, 3]]}
 
     assert_equal expected, TrafficSpy::Statistics.application_details(payloads)
   end
@@ -76,6 +76,19 @@ class StatisticsTest < Minitest::Test
     ranked_resolutions = TrafficSpy::Statistics.get_ranked_resolutions(payloads)
 
     assert_equal [[100, 2], [200, 1]], ranked_resolutions
+  end
+
+  def test_url_response_time_returns_nested_array_of_ranked_urls_by_average_response_time
+    create_source
+    payloads = []
+    payloads << create_payload({url: "jumpstartlab.com/blog", responded_in: 1})
+    payloads << create_payload({url: "jumpstartlab.com/blog", responded_in: 3})
+    payloads << create_payload({url: "jumpstartlab.com/home", responded_in: 5})
+    payloads << create_payload({url: "jumpstartlab.com/home", responded_in: 10})
+
+    ranked_avg_response_times = TrafficSpy::Statistics.get_avg_response_time_by_url(payloads)
+
+    assert_equal [["jumpstartlab.com/home", 7.5], ["jumpstartlab.com/blog", 2.0]], ranked_avg_response_times
   end
 
 end
