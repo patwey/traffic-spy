@@ -107,6 +107,7 @@ class ViewApplicationDetailsTest < FeatureTest
         assert has_content?('http://jumpstartlab.com 1s')
       end
     end
+    save_and_open_page
   end
 
 end
