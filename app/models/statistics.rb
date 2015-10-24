@@ -1,17 +1,17 @@
 module TrafficSpy
   class Statistics
     def self.application_details(identifier)
-      payloads = Source.find_by(identifier: identifier).payloads
-      # binding.pry
-      urls = get_ranked_urls(payloads)
-      browsers, op_systems = parse_user_agents(payloads)
-      resolutions = get_ranked_resolutions(payloads)
-      response_times = get_avg_response_time_by_url(payloads)
-      { urls: urls,
-        browsers: browsers,
-        op_systems: op_systems,
-        resolutions: resolutions,
-        response_times: response_times }
+      source = Source.find_by(identifier: identifier)
+      build_locals_hash(source)
+    end
+
+    def self.build_locals_hash(source)
+      locals = {}
+      locals[:urls] = order_collection(source.urls.map { |u| u.url })
+      locals[:browsers], locals[:op_systems] = parse_user_agents(source.payloads.map { |pl| pl.user_agent })
+      locals[:resolutions] = get_ranked_resolutions(source.payloads)
+      locals[:response_times] = get_avg_response_time_by_url(source.payloads)
+      locals
     end
 
     def self.order_collection(collection)
@@ -32,8 +32,7 @@ module TrafficSpy
       op_systems = order_collection(raw_op_systems)
     end
 
-    def self.parse_user_agents(payloads)
-      user_agent_strings = payloads.map { |payload| payload.user_agent }
+    def self.parse_user_agents(user_agent_strings)
       user_agents = user_agent_strings.map { |string| UserAgent.parse(string) }
       browsers = get_ranked_browsers(user_agents)
       op_systems = get_ranked_op_systems(user_agents)
@@ -47,8 +46,8 @@ module TrafficSpy
 
     def self.get_ranked_resolutions(payloads)
       #store as integers or numbers?
-      raw_screen_resolutions = payloads.map { |payload| "#{payload.resolution_width} x #{payload.resolution_height}" }
-      order_collection(raw_screen_resolutions)
+      raw_resolutions = payloads.map { |payload| "#{payload.resolution_width} x #{payload.resolution_height}" }
+      order_collection(raw_resolutions)
     end
 
     def self.get_avg_response_time_by_url(payloads)
