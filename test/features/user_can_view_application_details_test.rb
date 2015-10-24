@@ -65,7 +65,7 @@ class ViewApplicationDetailsTest < FeatureTest
       assert has_content?("Operating System Breakdown")
 
       within '#os-breakdown' do
-        assert has_content?('Apple iOS 2')
+        assert has_content?("intel mac os x 10_8_2")
       end
     end
   end
@@ -83,8 +83,7 @@ class ViewApplicationDetailsTest < FeatureTest
       assert has_content?("Screen Resolution")
 
       within '#screen-resolution' do
-        assert has_content?('1820 x 1960 2')
-        assert has_content?('750 x 1080 1')
+        assert has_content?('1920 x 1280	3')
       end
     end
   end
@@ -102,8 +101,8 @@ class ViewApplicationDetailsTest < FeatureTest
       assert has_content?("URL by Response Time")
 
       within '#response-time' do
-        assert has_content?('http://jumpstartlab.com/blog 20s')
-        assert has_content?('http://jumpstartlab.com 1s')
+        assert has_content?('http://jumpstartlab.com/blog')
+        assert has_content?('http://jumpstartlab.com')
       end
     end
   end

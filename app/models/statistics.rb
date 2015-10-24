@@ -5,10 +5,12 @@ module TrafficSpy
       urls = get_ranked_urls(payloads)
       browsers, op_systems = parse_user_agents(payloads)
       resolutions = get_ranked_resolutions(payloads)
+      response_times = get_avg_response_time_by_url(payloads)
       { urls: urls,
         browsers: browsers,
         op_systems: op_systems,
-        resolutions: resolutions }
+        resolutions: resolutions,
+        response_times: response_times }
     end
 
     def self.order_collection(collection)
@@ -44,7 +46,7 @@ module TrafficSpy
 
     def self.get_ranked_resolutions(payloads)
       #store as integers or numbers?
-      raw_screen_resolutions = payloads.map { |payload| (payload.resolution_height.to_i * payload.resolution_width.to_i) }
+      raw_screen_resolutions = payloads.map { |payload| "#{payload.resolution_width} x #{payload.resolution_height}" }
       order_collection(raw_screen_resolutions)
     end
 

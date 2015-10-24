@@ -58,7 +58,8 @@ class StatisticsTest < Minitest::Test
     payloads << create_payload
     payloads << create_payload
 
-    expected = {:urls=>[["http://jumpstartlab.com/blog", 3]], :browsers=>[["Safari", 3]], :op_systems=>[["intel mac os x 10_8_2", 3]], :resolutions=>[[2457600, 3]]}
+    expected = {:urls=>[["http://jumpstartlab.com/blog", 3]], :browsers=>[["Safari", 3]], :op_systems=>[["intel mac os x 10_8_2", 3]], :resolutions=>[["1920 x 1280", 3]], :response_times=>[["http://jumpstartlab.com/blog", 37.0]]}
+
 
     assert_equal expected, TrafficSpy::Statistics.application_details(payloads)
   end
@@ -71,11 +72,11 @@ class StatisticsTest < Minitest::Test
     payloads << create_payload({resolution_height: 10,
                                 resolution_width: 10 })
     payloads << create_payload({resolution_width: 200,
-                                resolution_height: 1})
+                                 resolution_height: 1})
 
     ranked_resolutions = TrafficSpy::Statistics.get_ranked_resolutions(payloads)
 
-    assert_equal [[100, 2], [200, 1]], ranked_resolutions
+    assert_equal [["10 x 10", 2], ['200 x 1', 1]], ranked_resolutions
   end
 
   def test_url_response_time_returns_nested_array_of_ranked_urls_by_average_response_time
