@@ -74,14 +74,12 @@
     </thead>
   ​
     <tbody>
+      <% resolutions.each do |os, count| %>
       <tr>
-        <td>1820 x 1960</td>
-        <td>2</td>
+        <td><%= os %></td>
+        <td><%= count %></td>
       </tr>
-      <tr>
-        <td>750 x 1080</td>
-        <td>1</td>
-      </tr>
+      <% end %>
     </tbody>
   </table>
 
@@ -96,14 +94,12 @@
       </thead>
     ​
       <tbody>
+        <% response_times.each do |response_times, count| %>
         <tr>
-          <td>http://jumpstartlab.com/blog</td>
-          <td>20s</td>
+          <td><%= response_times %></td>
+          <td><%= count %></td>
         </tr>
-        <tr>
-          <td>http://jumpstartlab.com</td>
-          <td>1s</td>
-        </tr>
+        <% end %>
       </tbody>
     </table>
 
