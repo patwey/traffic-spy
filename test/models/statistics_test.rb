@@ -54,14 +54,15 @@ class StatisticsTest < Minitest::Test
   def test_application_details_returns_hash_of_relevant_data
     create_source
     payloads = []
-    payloads << create_payload
-    payloads << create_payload
-    payloads << create_payload
+    payloads << create_payload({url: "http://jumpstartlab.com/blog"})
+    payloads << create_payload({url: "http://jumpstartlab.com/blog",
+                                requested_at: 2})
+    payloads << create_payload({url: "http://jumpstartlab.com/blog",
+                                requested_at: Time.now})
 
     expected = {:urls=>[["http://jumpstartlab.com/blog", 3]], :browsers=>[["Safari", 3]], :op_systems=>[["intel mac os x 10_8_2", 3]], :resolutions=>[["1920 x 1280", 3]], :response_times=>[["http://jumpstartlab.com/blog", 37.0]]}
 
-
-    assert_equal expected, TrafficSpy::Statistics.application_details(payloads)
+    assert_equal expected, TrafficSpy::Statistics.application_details(TrafficSpy::Source.all.last.identifier)
   end
 
   def test_get_ranked_resolution_returns_nested_array_of_resolutions_and_count

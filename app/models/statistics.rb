@@ -1,7 +1,8 @@
 module TrafficSpy
   class Statistics
-
-    def self.application_details(payloads)
+    def self.application_details(identifier)
+      payloads = Source.find_by(identifier: identifier).payloads
+      # binding.pry
       urls = get_ranked_urls(payloads)
       browsers, op_systems = parse_user_agents(payloads)
       resolutions = get_ranked_resolutions(payloads)
