@@ -66,10 +66,12 @@ module TrafficSpy
         min_response_time_by_url = response_times.min
         max_response_time_by_url = response_times.max
         avg_response_time_by_url[url.url] = response_times.reduce(:+) / response_times.size
-        binding.pry
       end
       avg_response_time_by_url.sort_by { |k, v| v }.reverse
     end
+
+    # can all response time stats be parsed in method above?
+    # or, better to seperate min/max and avg??
 
     # def self.get_min_max_response_time_by_url(payloads)
     #   urls = payloads.map { |payload| TrafficSpy::Url.find_by(id: payload.url_id) }.uniq

@@ -27,6 +27,16 @@ module TrafficSpy
       erb :application_url_statistics, locals: locals
     end
 
+    get '/sources/:identifier/events' do |identifier|
+      locals = TrafficSpy::Statistics.application_details(identifier)
+      erb :application_events_index, locals: locals
+    end
+
+    get '/sources/:identifier/events/:relative' do |identifier, relative|
+      locals = TrafficSpy::Statistics.application_details(identifier)
+      erb :application_event_details, locals: locals
+    end
+
     not_found do
       erb :error
     end
