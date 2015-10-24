@@ -18,11 +18,10 @@ module TrafficSpy
       source = Source.find_by(identifier: identifier)
       url = source.urls.find_by(url: "#{source.root_url}/#{path}").url
       payloads = Payload.all.map { |pl| pl if pl.url.url == url }.compact
-      binding.pry
       avg_response = payloads.find_by(url: url).average(:responded_in).to_i
       max_response = payloads.find_by(url: url).maximum(:responded_in)
       min_response = payloads.find_by(url: url).minimum(:responded_in)
-      binding.pry
+      request_types = payloads.map { |pl| pl.request_type.request_type }.uniq
       { avg_response: avg_response,
         max_response: max_response,
         min_response: min_response,
@@ -70,7 +69,7 @@ module TrafficSpy
       urls = payloads.map { |payload| TrafficSpy::Url.find_by(id: payload.url_id) }.uniq
       avg_response_by_url = {}
       urls.each do |url|
-        avg_response_by_url[:url] = payloads.where(url: url).average(:responded_in).to_f
+        avg_response_by_url[url.url] = payloads.where(url: url).average(:responded_in).to_f
       end
       avg_response_by_url.sort_by { |k, v| v }.reverse
     end
