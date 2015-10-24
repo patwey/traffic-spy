@@ -1,7 +1,6 @@
 <div id="application-url-statistics">
 
-  <!-- Data from URLs -->
-  <!-- make link for URL that points to payload hash, link to aggregate event data (see last 2 bullets on app details) -->
+  <!-- Min, Max, Avg data on URL specific response times (responded_in from payloads) -->
   <table class="table table-striped" id="url-response-times">
     <h2>URL Response Time</h2>
     <thead>
@@ -12,12 +11,72 @@
       </tr>
     </thead>
 ​
-    <tbody id="statistics">
+    <tbody id="url-statistics">
       <% response_times.each do |longest, shortest, average| %>
       <tr>
         <td><%= longest %></td>
         <td><%= shortest %></td>
         <td><%= average %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <!-- Most common HTTP Verbs (request_types table) -->
+  <table class="table table-striped" id="most-common-request-types">
+    <h2>Most Common Request Types</h2>
+    <thead>
+      <tr>
+          <th data-field="http-verb">HTTP Verb</th>
+          <th data-field="count">Count</th>
+      </tr>
+    </thead>
+​
+    <tbody id="http-verb-statistics">
+      <% request_types.each do |verb, count| %>
+      <tr>
+        <td><%= verb %></td>
+        <td><%= count %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <!-- Most Popular Referrers (referred_by in Payloads table) -->
+  <table class="table table-striped" id="most-popular-referrers">
+    <h2>Most Popular Referrers</h2>
+    <thead>
+      <tr>
+          <th data-field="referrer">Referrer</th>
+          <th data-field="count">Count</th>
+      </tr>
+    </thead>
+​
+    <tbody id="referred-by-statistics">
+      <% referred_by.each do |referrer, count| %>
+      <tr>
+        <td><%= referrer %></td>
+        <td><%= count %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <!-- Most Popular UserAgents (user_agent in Payloads table) -->
+  <table class="table table-striped" id="most-popular-user-agents">
+    <h2>Most Popular User Agents</h2>
+    <thead>
+      <tr>
+          <th data-field="user-agent">User Agent</th>
+          <th data-field="count">Count</th>
+      </tr>
+    </thead>
+​
+    <tbody id='user-agent-statistics'>
+      <% user_agents.each do |user_agent, count| %>
+      <tr>
+        <td><%= user_agent %></td>
+        <td><%= count %></td>
       </tr>
       <% end %>
     </tbody>

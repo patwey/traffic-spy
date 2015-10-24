@@ -93,4 +93,17 @@ class StatisticsTest < Minitest::Test
     assert_equal [["jumpstartlab.com/home", 7.5], ["jumpstartlab.com/blog", 2.0]], ranked_avg_response_times
   end
 
+  def test_response_time_by_url_returns_nested_array_of_times_ranked
+    create_source
+    payloads = []
+    payloads << create_payload({url: "jumpstartlab.com/blog", responded_in: 1})
+    payloads << create_payload({url: "jumpstartlab.com/blog", responded_in: 3})
+    payloads << create_payload({url: "jumpstartlab.com/home", responded_in: 5})
+    payloads << create_payload({url: "jumpstartlab.com/home", responded_in: 10})
+
+    response_times = TrafficSpy::Statistics.get_min_max_response_time_by_url(payloads)
+
+    assert_equal [["jumpstartlab.com/home", 7.5], ["jumpstartlab.com/blog", 2.0]], response_times
+  end
+
 end
