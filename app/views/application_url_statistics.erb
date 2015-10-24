@@ -1,0 +1,24 @@
+<div id="application-url-statistics">
+
+  <!-- Data from URLs -->
+  <!-- make link for URL that points to payload hash, link to aggregate event data (see last 2 bullets on app details) -->
+  <table class="table table-striped" id="url-response-times">
+    <h2>Most Requested URL's</h2>
+    <thead>
+      <tr>
+          <th data-field="url">URL</th>
+          <th data-field="count">Count</th>
+      </tr>
+    </thead>
+​
+    <tbody>
+      <% urls.each do |url, count| %>
+      <tr>
+        <td><%= url %></td>
+        <td><%= count %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+</div>

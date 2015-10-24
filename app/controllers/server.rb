@@ -22,6 +22,11 @@ module TrafficSpy
       erb :application_details, locals: locals
     end
 
+    get '/sources/:identifier/urls/:relative' do |identifier, relative|
+      locals = TrafficSpy::Statistics.application_details(identifier)
+      erb :application_url_statistics, locals: locals
+    end
+
     not_found do
       erb :error
     end
