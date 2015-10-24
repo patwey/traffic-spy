@@ -107,4 +107,20 @@ class ViewApplicationDetailsTest < FeatureTest
     end
   end
 
+  def test_user_can_view_urls_to_url_specific_data_and_aggregate_event_data
+    create_source
+    create_payload({url: "http://jumpstartlab.com/tyler"})
+    create_payload({url: 'http://jumpstartlab.com/blog/1'})
+
+    visit '/sources/jumpstartlab'
+    assert_equal '/sources/jumpstartlab', current_path
+    within '#url-specific-data' do
+      assert has_content? 'jumpstartlab.com/tyler'
+      assert has_content? 'jumpstartlab.com/blog/1'
+    end
+
+    within '#aggregate-event-data' do
+      assert has_content? 'jumpstartlab'
+    end
+  end
 end

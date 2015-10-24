@@ -2,16 +2,31 @@ module TrafficSpy
   class Statistics
     def self.application_details(identifier)
       payloads = Source.find_by(identifier: identifier).payloads
-      # binding.pry
       urls = get_ranked_urls(payloads)
       browsers, op_systems = parse_user_agents(payloads)
       resolutions = get_ranked_resolutions(payloads)
       response_times = get_avg_response_time_by_url(payloads)
-      { urls: urls,
+      { identifier: identifier,
+        urls: urls,
         browsers: browsers,
         op_systems: op_systems,
         resolutions: resolutions,
         response_times: response_times }
+    end
+
+    def self.url_statistics(identifier, path)
+      source = Source.find_by(identifier: identifier)
+      url = source.urls.find_by(url: "#{source.root_url}/#{path}").url
+      payloads = Payload.all.map { |pl| pl if pl.url.url == url }.compact
+      binding.pry
+      avg_response = payloads.find_by(url: url).average(:responded_in).to_i
+      max_response = payloads.find_by(url: url).maximum(:responded_in)
+      min_response = payloads.find_by(url: url).minimum(:responded_in)
+      binding.pry
+      { avg_response: avg_response,
+        max_response: max_response,
+        min_response: min_response,
+        request_types: request_types}
     end
 
     def self.order_collection(collection)
@@ -53,39 +68,11 @@ module TrafficSpy
 
     def self.get_avg_response_time_by_url(payloads)
       urls = payloads.map { |payload| TrafficSpy::Url.find_by(id: payload.url_id) }.uniq
-      min_response_time_by_url = {}
-      max_response_time_by_url = {}
-      avg_response_time_by_url = {}
+      avg_response_by_url = {}
       urls.each do |url|
-        response_times = []
-        payloads.each do |payload|
-          if payload[:url_id] == url.id
-            response_times << payload[:responded_in].to_f
-          end
-        end
-        min_response_time_by_url = response_times.min
-        max_response_time_by_url = response_times.max
-        avg_response_time_by_url[url.url] = response_times.reduce(:+) / response_times.size
+        avg_response_by_url[:url] = payloads.where(url: url).average(:responded_in).to_f
       end
-      avg_response_time_by_url.sort_by { |k, v| v }.reverse
+      avg_response_by_url.sort_by { |k, v| v }.reverse
     end
-
-    # can all response time stats be parsed in method above?
-    # or, better to seperate min/max and avg??
-
-    # def self.get_min_max_response_time_by_url(payloads)
-    #   urls = payloads.map { |payload| TrafficSpy::Url.find_by(id: payload.url_id) }.uniq
-    #   response_times = []
-    #   urls.each do |url|
-    #     payloads.each do |payload|
-    #       if payload[:url_id] == url.id
-    #         response_times << payload[:responded_in].to_f
-    #       end
-    #     end
-    #   end
-    #   response_times.sort_by { |k, v| v }.min
-    # end
-
-
   end
 end

@@ -102,4 +102,22 @@
       </tbody>
     </table>
 
+  <!-- Hyperlinks to url specific data -->
+    <div id='url-specific-data'>
+      <h3> URL Specific Data: </h3>
+      <% urls.each do |url, _| %>
+        <a href="/sources/<%= identifier %>/urls/<%= url.split('.com/').last %>">
+          <%= url.split('//').last %>
+        </a><br>
+      <% end %>
+    </div>
+  <!-- Hyperlinks to aggregate event data -->
+    <div id='aggregate-event-data'>
+      <h3> Aggregate Event Data: </h3>
+        <a href="/sources/<%= identifier %>/events">
+          <%= identifier %>
+        </a><br>
+    </div>
+
+    <br>
   </div>

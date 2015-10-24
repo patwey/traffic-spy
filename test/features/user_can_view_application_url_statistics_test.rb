@@ -16,8 +16,7 @@ class ViewApplicationUrlStatisticsTest < FeatureTest
     assert page.has_content?("Identifier doesn't exist")
   end
 
-  def test_user_can_url_response_times_statistics
-    skip
+  def test_user_can_view_url_response_times_statistics
     create_source
     create_payload({url: "http://jumpstartlab.com/tyler"})
     create_payload({url: 'http://jumpstartlab.com/blog'})

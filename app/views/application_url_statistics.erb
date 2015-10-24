@@ -12,13 +12,11 @@
     </thead>
 ​
     <tbody id="url-statistics">
-      <% response_times.each do |longest, shortest, average| %>
       <tr>
-        <td><%= longest %></td>
-        <td><%= shortest %></td>
-        <td><%= average %></td>
+        <td><%= avg_response %></td>
+        <td><%= min_response %></td>
+        <td><%= max_response %></td>
       </tr>
-      <% end %>
     </tbody>
   </table>
 
@@ -33,10 +31,10 @@
     </thead>
 ​
     <tbody id="http-verb-statistics">
-      <% request_types.each do |verb, count| %>
+      <% request_types.each do |verb| %>
       <tr>
         <td><%= verb %></td>
-        <td><%= count %></td>
+        <!-- <td><%= count %></td> -->
       </tr>
       <% end %>
     </tbody>

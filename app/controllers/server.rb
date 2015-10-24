@@ -23,7 +23,7 @@ module TrafficSpy
     end
 
     get '/sources/:identifier/urls/:relative' do |identifier, relative|
-      locals = TrafficSpy::Statistics.application_details(identifier)
+      locals = TrafficSpy::Statistics.url_statistics(identifier, relative)
       erb :application_url_statistics, locals: locals
     end
 
