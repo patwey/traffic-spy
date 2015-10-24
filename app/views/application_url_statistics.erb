@@ -3,19 +3,21 @@
   <!-- Data from URLs -->
   <!-- make link for URL that points to payload hash, link to aggregate event data (see last 2 bullets on app details) -->
   <table class="table table-striped" id="url-response-times">
-    <h2>Most Requested URL's</h2>
+    <h2>URL Response Time</h2>
     <thead>
       <tr>
-          <th data-field="url">URL</th>
-          <th data-field="count">Count</th>
+          <th data-field="longest-time">Longest Response</th>
+          <th data-field="shortest-time">Shortest Response</th>
+          <th data-field="avg-time">Average Response</th>
       </tr>
     </thead>
 ​
-    <tbody>
-      <% urls.each do |url, count| %>
+    <tbody id="statistics">
+      <% response_times.each do |longest, shortest, average| %>
       <tr>
-        <td><%= url %></td>
-        <td><%= count %></td>
+        <td><%= longest %></td>
+        <td><%= shortest %></td>
+        <td><%= average %></td>
       </tr>
       <% end %>
     </tbody>

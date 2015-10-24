@@ -28,11 +28,13 @@ class ViewApplicationUrlStatisticsTest < FeatureTest
 
     within '#application-url-statistics' do
       within '#url-response-times' do
-        assert has_content?("Most Requested URL's")
+        assert has_content?("URL Response Time")
 
-    #   within '#' do
-    #     assert has_content?('http://jumpstartlab.com/blog')
-    #     assert has_content?('http://jumpstartlab.com/tyler')
+        within '#statistics' do
+          assert has_content?('30')
+          assert has_content?('3')
+          assert has_content?('5')
+         end
        end
     end
   end
