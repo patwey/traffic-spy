@@ -46,8 +46,8 @@ class ViewApplicationDetailsTest < FeatureTest
       assert has_content?("Web Browser Breakdown")
 
       within '#web-browser-breakdown' do
-        assert has_content?('Chrome 2')
-        assert has_content?('Firefox 1')
+        assert has_content?('Safari 3')
+        # assert has_content?('Firefox 1')
       end
     end
   end
@@ -65,8 +65,7 @@ class ViewApplicationDetailsTest < FeatureTest
       assert has_content?("Operating System Breakdown")
 
       within '#os-breakdown' do
-        assert has_content?('Apple iOS 2')
-        assert has_content?('Windows 95 1')
+        assert has_content?("intel mac os x 10_8_2")
       end
     end
   end
@@ -84,8 +83,7 @@ class ViewApplicationDetailsTest < FeatureTest
       assert has_content?("Screen Resolution")
 
       within '#screen-resolution' do
-        assert has_content?('1820 x 1960 2')
-        assert has_content?('750 x 1080 1')
+        assert has_content?('1920 x 1280	3')
       end
     end
   end
@@ -103,11 +101,27 @@ class ViewApplicationDetailsTest < FeatureTest
       assert has_content?("URL by Response Time")
 
       within '#response-time' do
-        assert has_content?('http://jumpstartlab.com/blog 20s')
-        assert has_content?('http://jumpstartlab.com 1s')
+        assert has_content?('http://jumpstartlab.com/blog')
+        assert has_content?('http://jumpstartlab.com')
       end
     end
     save_and_open_page
   end
 
+  def test_user_can_view_urls_to_url_specific_data_and_aggregate_event_data
+    create_source
+    create_payload({url: "http://jumpstartlab.com/tyler"})
+    create_payload({url: 'http://jumpstartlab.com/blog/1'})
+
+    visit '/sources/jumpstartlab'
+    assert_equal '/sources/jumpstartlab', current_path
+    within '#url-specific-data' do
+      assert has_content? 'jumpstartlab.com/tyler'
+      assert has_content? 'jumpstartlab.com/blog/1'
+    end
+
+    within '#aggregate-event-data' do
+      assert has_content? 'jumpstartlab'
+    end
+  end
 end

@@ -17,13 +17,25 @@ module TrafficSpy
     end
 
     get '/sources/:identifier' do |identifier|
-      #@payloads = Payload.find_by(source_id: source.id)
-      # @payloads = TrafficSpy::PayloadRetriever.retrieve(identifier)
-      # validate id exists? -> class
-        # it exists:
-        erb :application_details
-        # it does not:
-          # not_found
+      # payloads = TrafficSpy::PayloadRetriever.retrieve(identifier)
+      locals = TrafficSpy::Statistics.application_details(identifier)
+      erb :application_details, locals: locals
+    end
+
+    get '/sources/:identifier/urls/:relative' do |identifier, relative|
+      not_found unless TrafficSpy::Source.all.find_by(identifier: identifier)
+      locals = TrafficSpy::Statistics.url_statistics(identifier, relative)
+      erb :application_url_statistics, locals: locals
+    end
+
+    get '/sources/:identifier/events' do |identifier|
+      locals = TrafficSpy::Statistics.application_events_index(identifier)
+      erb :application_events_index, locals: locals
+    end
+
+    get '/sources/:identifier/events/:event_name' do |identifier, event_name|
+      locals = TrafficSpy::Statistics.application_event_details(identifier, event_name)
+      erb :application_event_details, locals: locals
     end
 
     not_found do

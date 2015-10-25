@@ -12,17 +12,14 @@
     </thead>
 ​
     <tbody>
+      <% urls.each do |url, count| %>
       <tr>
-        <td>http://jumpstartlab.com/blog</td>
-        <td>2</td>
+        <td><%= url %></td>
+        <td><%= count %></td>
       </tr>
-      <tr>
-        <td>http://jumpstartlab.com/tyler/</td>
-        <td>1</td>
-      </tr>
+      <% end %>
     </tbody>
   </table>
-
 
 <!-- Data from UserAgent -->
   <table class="striped" id="web-browser-breakdown">
@@ -35,14 +32,12 @@
     </thead>
   ​
     <tbody>
+      <% browsers.each do |browser, count| %>
       <tr>
-        <td>Chrome</td>
-        <td>2</td>
+        <td><%= browser %></td>
+        <td><%= count %></td>
       </tr>
-      <tr>
-        <td>Firefox</td>
-        <td>1</td>
-      </tr>
+      <% end %>
     </tbody>
   </table>
 
@@ -57,14 +52,12 @@
   </thead>
 ​
   <tbody>
+    <% op_systems.each do |os, count| %>
     <tr>
-      <td>Apple iOS</td>
-      <td>2</td>
+      <td><%= os %></td>
+      <td><%= count %></td>
     </tr>
-    <tr>
-      <td>Windows 95</td>
-      <td>1</td>
-    </tr>
+    <% end %>
   </tbody>
 </table>
 
@@ -80,14 +73,12 @@
     </thead>
   ​
     <tbody>
+      <% resolutions.each do |os, count| %>
       <tr>
-        <td>1820 x 1960</td>
-        <td>2</td>
+        <td><%= os %></td>
+        <td><%= count %></td>
       </tr>
-      <tr>
-        <td>750 x 1080</td>
-        <td>1</td>
-      </tr>
+      <% end %>
     </tbody>
   </table>
 
@@ -102,15 +93,31 @@
       </thead>
     ​
       <tbody>
+        <% response_times.each do |response_times, count| %>
         <tr>
-          <td>http://jumpstartlab.com/blog</td>
-          <td>20s</td>
+          <td><%= response_times %></td>
+          <td><%= count %></td>
         </tr>
-        <tr>
-          <td>http://jumpstartlab.com</td>
-          <td>1s</td>
-        </tr>
+        <% end %>
       </tbody>
     </table>
 
+  <!-- Hyperlinks to url specific data -->
+    <div id='url-specific-data'>
+      <h3> URL Specific Data: </h3>
+      <% urls.each do |url, _| %>
+        <a href="/sources/<%= identifier %>/urls/<%= url.split('.com/').last %>">
+          <%= url.split('//').last %>
+        </a><br>
+      <% end %>
+    </div>
+  <!-- Hyperlinks to aggregate event data -->
+    <div id='aggregate-event-data'>
+      <h3> Aggregate Event Data: </h3>
+        <a href="/sources/<%= identifier %>/events">
+          <%= identifier %>
+        </a><br>
+    </div>
+
+    <br>
   </div>

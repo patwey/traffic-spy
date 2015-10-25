@@ -64,7 +64,7 @@ module TrafficSpy
     def self.link_foreign_keys(data)
       data[:source_id] = get_source_id(data[:identifier])
       data[:url_id] = get_url_id(data[:url])
-      data[:request_type] = get_request_type_id(data[:request_type])
+      data[:request_type_id] = get_request_type_id(data[:request_type])
       data[:event_name_id] = get_event_name_id(data[:event_name])
       keys = [:identifier, :url, :request_type, :event_name]
       delete_linked_data(data, keys)
