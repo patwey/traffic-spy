@@ -49,8 +49,8 @@ module TrafficSpy
       Source.find_by(identifier: identifier).id
     end
 
-    def self.get_url_id(url)
-      Url.find_or_create_by(url: url).id
+    def self.get_url_id(url, source_id)
+      Url.find_or_create_by({url: url, source_id: source_id}).id
     end
 
     def self.get_request_type_id(request_type)
@@ -63,7 +63,7 @@ module TrafficSpy
 
     def self.link_foreign_keys(data)
       data[:source_id] = get_source_id(data[:identifier])
-      data[:url_id] = get_url_id(data[:url])
+      data[:url_id] = get_url_id(data[:url], data[:source_id])
       data[:request_type_id] = get_request_type_id(data[:request_type])
       data[:event_name_id] = get_event_name_id(data[:event_name])
       keys = [:identifier, :url, :request_type, :event_name]
