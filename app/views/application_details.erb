@@ -1,9 +1,9 @@
-<div id="application-details">
+<div id="application-details" class="row">
 
   <!-- Data from URLs -->
   <!-- make link for URL that points to payload hash, link to aggregate event data (see last 2 bullets on app details) -->
-  <table class="striped" id="url-ranking">
-    <h2>Most Requested URL's</h2>
+  <table class="highlight" id="url-ranking">
+    <h5>Most Requested URL's</h5>
     <thead>
       <tr>
           <th data-field="url">URL</th>
@@ -22,8 +22,8 @@
   </table>
 
 <!-- Data from UserAgent -->
-  <table class="striped" id="web-browser-breakdown">
-    <h2>Web Browser Breakdown</h2>
+  <table class="highlight " id="web-browser-breakdown">
+    <h5>Web Browser Breakdown</h5>
     <thead>
       <tr>
           <th data-field="browser">Browser</th>
@@ -42,8 +42,8 @@
   </table>
 
 <!-- Data from UserAgent -->
-  <table class="striped" id="os-breakdown">
-    <h2>Operating System Breakdown</h2>
+  <table class="highlight " id="os-breakdown">
+    <h5>Operating System Breakdown</h5>
     <thead>
       <tr>
           <th data-field="browser">Operating System</th>
@@ -63,8 +63,8 @@
 
 
 <!-- Data from resolutionWidth x resolutionHeight -->
-  <table class="striped" id="screen-resolution">
-    <h2>Screen Resolution</h2>
+  <table class="highlight " id="screen-resolution">
+    <h5>Screen Resolution</h5>
     <thead>
       <tr>
           <th data-field="resolution">Resolution</th>
@@ -83,8 +83,8 @@
   </table>
 
   <!-- Data from respondedIn -->
-  <table class="striped" id="response-time">
-    <h2>URL by Response Time</h2>
+  <table class="highlight " id="response-time">
+    <h5>URL by Response Time</h5>
     <thead>
       <tr>
           <th data-field="url">URL</th>
@@ -103,8 +103,8 @@
   </table>
 
   <!-- Hyperlinks to url specific data -->
-  <div id='url-specific-data'>
-    <h3> URL Specific Data: </h3>
+  <div id='url-specific-data' class="">
+    <h5> URL Specific Data: </h5>
     <% urls.each do |url, _| %>
       <a href="/sources/<%= identifier %>/urls/<%= url.split('.com/').last %>">
         <%= url.split('//').last %>
@@ -112,11 +112,11 @@
     <% end %>
   </div>
   <!-- Hyperlinks to aggregate event data -->
-  <div id='aggregate-event-data'>
-    <h3> Aggregate Event Data: </h3>
+  <div id='aggregate-event-data' class="">
+    <h5> Aggregate Event Data: </h5>
       <a href="/sources/<%= identifier %>/events">
         <%= identifier %>
       </a><br>
   </div><br>
-  
+
 </div>
