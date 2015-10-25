@@ -16,38 +16,73 @@ module TrafficSpy
 
     def self.url_statistics(identifier, path)
       source = Source.find_by(identifier: identifier)
-      url = source.urls.find_by(url: "#{source.root_url}/#{path}").url
-      # payloads = Payload.all.map { |pl| pl if pl.url.url == url }.compact
-      avg_response = source.payloads.where(url_id: Url.find_by(url: url).id).average(:responded_in).to_f
-      max_response = source.payloads.where(url_id: Url.find_by(url: url).id).maximum(:responded_in).to_f
-      min_response = source.payloads.where(url_id: Url.find_by(url: url).id).minimum(:responded_in).to_f
-      request_types = source.payloads.map { |pl| pl.request_type.request_type }.uniq
-      referred_by = order_collection(source.payloads.where(url_id: Url.find_by(url: url).id).map { |pl| pl.referred_by })
-      browsers, op_systems = parse_user_agents(source.payloads.where(url_id: Url.find_by(url: url).id))
+
+      url = source.urls
+                  .find_by(url: "#{source.root_url}/#{path}")
+                  .url
+
+      # get_response_statistics
+      avg_response = source.payloads
+                           .where(url_id: Url.find_by(url: url)
+                           .id).average(:responded_in)
+                           .to_f
+      max_response = source.payloads
+                           .where(url_id: Url.find_by(url: url)
+                           .id).maximum(:responded_in)
+                           .to_f
+      min_response = source.payloads
+                           .where(url_id: Url.find_by(url: url)
+                           .id)
+                           .minimum(:responded_in)
+                           .to_f
+
+      # request_types
+      request_types = source.payloads
+                            .map { |pl| pl.request_type.request_type }
+                            .uniq
+
+      # referred_by
+      referred_by = order_collection(source.payloads
+                                           .where(url_id: Url.find_by(url: url)
+                                           .id)
+                                           .map { |pl| pl.referred_by })
+
+      # get browsers
+      browsers, op_systems = parse_user_agents(source.payloads
+                                                     .where(url_id: Url.find_by(url: url)
+                                                     .id))
       { avg_response: avg_response,
         max_response: max_response,
         min_response: min_response,
         request_types: request_types,
         referred_by: referred_by,
-        user_agents: browsers}
+        user_agents: browsers }
     end
 
     def self.application_events_index(identifier)
       source = Source.find_by(identifier: identifier)
       payloads = source.payloads
 
-      event_names = get_ordered_events(payloads).delete_if { |event, _| event.nil? || event.empty? }
+      # get_event_names(payloads)
+      event_names = get_ordered_events(payloads)
+                    .delete_if { |event, _| event.nil? || event.empty? }
       { identifier: identifier,
         event_names: event_names }
     end
 
     def self.application_event_details(identifier, event_name)
       source = Source.find_by(identifier: identifier)
-      payloads = source.payloads.where(event_name_id: EventName.find_by(event_name: event_name).id)
+
+      # event-specific payloads
+      payloads = source.payloads
+                       .where(event_name_id: EventName.find_by(event_name: event_name)
+                                                      .id)
+      # parse requested_at
       hours = payloads.map { |payload| DateTime.parse(payload[:requested_at]).strftime("%-l %P") }
       events_by_hour = order_collection(hours)
+
+      # total count
       total_count = total_count(events_by_hour)
-      # [hour, count]
       { events_by_hour: events_by_hour, total_count: total_count }
     end
 
@@ -89,7 +124,6 @@ module TrafficSpy
     end
 
     def self.get_ranked_resolutions(payloads)
-      #store as integers or numbers?
       raw_screen_resolutions = payloads.map { |payload| "#{payload.resolution_width} x #{payload.resolution_height}" }
       order_collection(raw_screen_resolutions)
     end
