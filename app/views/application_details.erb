@@ -42,24 +42,24 @@
   </table>
 
 <!-- Data from UserAgent -->
-<table class="striped" id="os-breakdown">
-  <h2>Operating System Breakdown</h2>
-  <thead>
-    <tr>
-        <th data-field="browser">Operating System</th>
-        <th data-field="count">Count</th>
-    </tr>
-  </thead>
-​
-  <tbody>
-    <% op_systems.each do |os, count| %>
-    <tr>
-      <td><%= os %></td>
-      <td><%= count %></td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+  <table class="striped" id="os-breakdown">
+    <h2>Operating System Breakdown</h2>
+    <thead>
+      <tr>
+          <th data-field="browser">Operating System</th>
+          <th data-field="count">Count</th>
+      </tr>
+    </thead>
+  ​
+    <tbody>
+      <% op_systems.each do |os, count| %>
+      <tr>
+        <td><%= os %></td>
+        <td><%= count %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
 
 
 <!-- Data from resolutionWidth x resolutionHeight -->
@@ -83,41 +83,40 @@
   </table>
 
   <!-- Data from respondedIn -->
-    <table class="striped" id="response-time">
-      <h2>URL by Response Time</h2>
-      <thead>
-        <tr>
-            <th data-field="url">URL</th>
-            <th data-field="time">Time</th>
-        </tr>
-      </thead>
-    ​
-      <tbody>
-        <% response_times.each do |response_times, count| %>
-        <tr>
-          <td><%= response_times %></td>
-          <td><%= count %></td>
-        </tr>
-        <% end %>
-      </tbody>
-    </table>
+  <table class="striped" id="response-time">
+    <h2>URL by Response Time</h2>
+    <thead>
+      <tr>
+          <th data-field="url">URL</th>
+          <th data-field="time">Time</th>
+      </tr>
+    </thead>
+  ​
+    <tbody>
+      <% response_times.each do |response_times, count| %>
+      <tr>
+        <td><%= response_times %></td>
+        <td><%= count %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
 
   <!-- Hyperlinks to url specific data -->
-    <div id='url-specific-data'>
-      <h3> URL Specific Data: </h3>
-      <% urls.each do |url, _| %>
-        <a href="/sources/<%= identifier %>/urls/<%= url.split('.com/').last %>">
-          <%= url.split('//').last %>
-        </a><br>
-      <% end %>
-    </div>
-  <!-- Hyperlinks to aggregate event data -->
-    <div id='aggregate-event-data'>
-      <h3> Aggregate Event Data: </h3>
-        <a href="/sources/<%= identifier %>/events">
-          <%= identifier %>
-        </a><br>
-    </div>
-
-    <br>
+  <div id='url-specific-data'>
+    <h3> URL Specific Data: </h3>
+    <% urls.each do |url, _| %>
+      <a href="/sources/<%= identifier %>/urls/<%= url.split('.com/').last %>">
+        <%= url.split('//').last %>
+      </a><br>
+    <% end %>
   </div>
+  <!-- Hyperlinks to aggregate event data -->
+  <div id='aggregate-event-data'>
+    <h3> Aggregate Event Data: </h3>
+      <a href="/sources/<%= identifier %>/events">
+        <%= identifier %>
+      </a><br>
+  </div><br>
+  
+</div>
