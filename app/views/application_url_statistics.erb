@@ -33,8 +33,7 @@
     <tbody id="http-verb-statistics">
       <% request_types.each do |verb| %>
       <tr>
-        <td><%= verb %></td>
-        <!-- <td><%= count %></td> -->
+        <td><%= verb.upcase %></td>
       </tr>
       <% end %>
     </tbody>

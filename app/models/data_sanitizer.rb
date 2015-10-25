@@ -13,11 +13,10 @@ module TrafficSpy
       result[:responded_in] = payload["respondedIn"]
       result[:referred_by] = payload["referredBy"]
       result[:request_type] = payload["requestType"]
-      result[:event_name] = payload["eventName"]
       result[:user_agent] = payload["userAgent"]
       result[:resolution_width] = payload["resolutionWidth"]
       result[:resolution_height] = payload["resolutionHeight"]
-
+      result[:event_name] = payload["eventName"]
       downcase_values(result)
     end
 
@@ -45,7 +44,7 @@ module TrafficSpy
 
     def self.downcase_values(data)
       data.map do |k, v|
-        if v.nil? || v.class == Fixnum
+        if v.nil? || v.class == Fixnum || k == :event_name
           [k, v]
         else
           [k, v.downcase]
