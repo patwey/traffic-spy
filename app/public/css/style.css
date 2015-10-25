@@ -9,9 +9,13 @@ main {
 }
 
 .brand-logo {
-  margin-left: 15px;
+  margin-left: 25px;
 }
 
-.right hide-on-med-and-down {
-  margin-left: 15px;
+.footer-copyright {
+  font-size: 18px
+}
+
+#nav-mobile {
+  margin-right: 20px;
 }
