@@ -105,7 +105,6 @@ class ViewApplicationDetailsTest < FeatureTest
         assert has_content?('http://jumpstartlab.com')
       end
     end
-    save_and_open_page
   end
 
   def test_user_can_view_urls_to_url_specific_data_and_aggregate_event_data
