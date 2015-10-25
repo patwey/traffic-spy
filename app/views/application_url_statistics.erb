@@ -1,7 +1,16 @@
-<div id="application-url-statistics">
+<div id="application-url-statistics" class="row"><br><br>
+
+  <div class="col s12 m12">
+          <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+
+
+    <div class="col s12 m6">
+            <div class="card teal darken-1">
+              <div class="card-content white-text">
 
   <!-- Min, Max, Avg data on URL specific response times (responded_in from payloads) -->
-  <table class="highlight" id="url-response-times">
+  <table class="" id="url-response-times">
     <h5>URL Response Time</h5>
     <thead>
       <tr>
@@ -20,13 +29,20 @@
     </tbody>
   </table>
 
+  </div>
+  </div>
+  </div>
+
+  <div class="col s12 m6">
+          <div class="card teal darken-1">
+            <div class="card-content white-text">
+
   <!-- Most common HTTP Verbs (request_types table) -->
-  <table class="highlight" id="most-common-request-types">
+  <table class="" id="most-common-request-types">
     <h5>Most Common Request Types</h5>
     <thead>
       <tr>
           <th data-field="http-verb">HTTP Verb</th>
-          <th data-field="count">Count</th>
       </tr>
     </thead>
 ​
@@ -39,8 +55,17 @@
     </tbody>
   </table>
 
+  </div>
+  </div>
+  </div>
+
+
+  <div class="col s12 m6">
+          <div class="card teal darken-1">
+            <div class="card-content white-text">
+
   <!-- Most Popular Referrers (referred_by in Payloads table) -->
-  <table class="highlight" id="most-popular-referrers">
+  <table class="" id="most-popular-referrers">
     <h5>Most Popular Referrers</h5>
     <thead>
       <tr>
@@ -59,8 +84,17 @@
     </tbody>
   </table>
 
+  </div>
+  </div>
+  </div>
+
+
+  <div class="col s12 m6">
+          <div class="card teal darken-1">
+            <div class="card-content white-text">
+
   <!-- Most Popular UserAgents (user_agent in Payloads table) -->
-  <table class="highlight" id="most-popular-user-agents">
+  <table class="" id="most-popular-user-agents">
     <h5>Most Popular User Agents</h5>
     <thead>
       <tr>
@@ -78,5 +112,13 @@
       <% end %>
     </tbody>
   </table>
+
+  </div>
+  </div>
+  </div>
+
+</div>
+</div>
+</div>
 
 </div>
