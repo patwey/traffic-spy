@@ -51,9 +51,8 @@ module TrafficSpy
       source = Source.find_by(identifier: identifier)
 
       # event-specific payloads
-      payloads = source.payloads
-                       .where(event_name_id: EventName.find_by(event_name: event_name)
-                                                      .id)
+      payloads = EventName.find_by(event_name: event_name).payloads
+
       # parse requested_at
       hours = payloads.map { |payload| DateTime.parse(payload[:requested_at]).strftime("%-l %P") }
       events_by_hour = order_collection(hours)

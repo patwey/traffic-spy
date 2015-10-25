@@ -1,4 +1,5 @@
 class TrafficSpy::EventName < ActiveRecord::Base
   validates :event_name, uniqueness: true
-  has_many :payloads, through: :event_name_id
+  belongs_to :source, foreign_key: :source_id
+  has_many :payloads
 end

@@ -11,13 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151025175802) do
+ActiveRecord::Schema.define(version: 20151025193033) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "event_names", force: :cascade do |t|
-    t.text "event_name"
+    t.text    "event_name"
+    t.integer "source_id"
   end
 
   create_table "payloads", force: :cascade do |t|
@@ -35,7 +36,8 @@ ActiveRecord::Schema.define(version: 20151025175802) do
   end
 
   create_table "request_types", force: :cascade do |t|
-    t.text "request_type"
+    t.text    "request_type"
+    t.integer "source_id"
   end
 
   create_table "sources", force: :cascade do |t|

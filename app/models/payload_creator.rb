@@ -53,19 +53,19 @@ module TrafficSpy
       Url.find_or_create_by({url: url, source_id: source_id}).id
     end
 
-    def self.get_request_type_id(request_type)
-      RequestType.find_or_create_by(request_type: request_type).id
+    def self.get_request_type_id(request_type, source_id)
+      RequestType.find_or_create_by(request_type: request_type, source_id: source_id).id
     end
 
-    def self.get_event_name_id(event_name)
-      EventName.find_or_create_by(event_name: event_name).id
+    def self.get_event_name_id(event_name, source_id)
+      EventName.find_or_create_by(event_name: event_name, source_id: source_id).id
     end
 
     def self.link_foreign_keys(data)
       data[:source_id] = get_source_id(data[:identifier])
       data[:url_id] = get_url_id(data[:url], data[:source_id])
-      data[:request_type_id] = get_request_type_id(data[:request_type])
-      data[:event_name_id] = get_event_name_id(data[:event_name])
+      data[:request_type_id] = get_request_type_id(data[:request_type], data[:source_id])
+      data[:event_name_id] = get_event_name_id(data[:event_name], data[:source_id])
       keys = [:identifier, :url, :request_type, :event_name]
       delete_linked_data(data, keys)
     end
