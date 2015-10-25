@@ -17,6 +17,7 @@ module TrafficSpy
       result[:resolution_width] = payload["resolutionWidth"]
       result[:resolution_height] = payload["resolutionHeight"]
       result[:event_name] = payload["eventName"]
+      
       downcase_values(result)
     end
 
