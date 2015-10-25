@@ -14,13 +14,13 @@ class PayloadCreatorTest < Minitest::Test
 
   def test_process_returns_a_400_status_and_error_if_payload_is_missing
     params = {"payload"=>"", "splat"=>[], "captures"=>["jumpstartlab"], "id"=>"jumpstartlab"}
-    status, body = TrafficSpy::PayloadCreator.process(params)
+    status, body = TrafficSpy::PayloadCreator.process(params, params['id'])
 
     assert_equal 400, status
     assert_equal 'Missing Payload', body
 
     params = {"splat"=>[], "captures"=>["jumpstartlab"], "id"=>"jumpstartlab"}
-    status, body = TrafficSpy::PayloadCreator.process(params)
+    status, body = TrafficSpy::PayloadCreator.process(params, params['id'])
 
     assert_equal 400, status
     assert_equal 'Missing Payload', body
@@ -32,14 +32,14 @@ class PayloadCreatorTest < Minitest::Test
               "splat"=>[],
               "captures"=>["jumpstartlab"],
               "id"=>"jumpstartlab"}
-    TrafficSpy::PayloadCreator.process(params)
+    TrafficSpy::PayloadCreator.process(params, params['id'])
     assert_equal (total + 1), TrafficSpy::Payload.all.count
 
     params = {"payload"=>"{\"url\":\"http://jumpstartlab.com/blog\",\"requestedAt\":\"2013-02-16 21:38:28 -0700\",\"respondedIn\":37,\"referredBy\":\"http://jumpstartlab.com\",\"requestType\":\"GET\",\"parameters\":[],\"eventName\": \"socialLogin\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17\",\"resolutionWidth\":\"1920\",\"resolutionHeight\":\"1280\",\"ip\":\"63.29.38.211\"}",
               "splat"=>[],
               "captures"=>["jumpstartlab"],
               "id"=>"jumpstartlab"}
-    status, body = TrafficSpy::PayloadCreator.process(params)
+    status, body = TrafficSpy::PayloadCreator.process(params, params['id'])
 
     assert_equal (total + 1), TrafficSpy::Payload.all.count
     assert_equal 403, status
@@ -51,7 +51,7 @@ class PayloadCreatorTest < Minitest::Test
               "splat"=>[],
               "captures"=>["jumpstartlab"],
               "id"=>"THISIDENTIFIERDOESNTEXIST"}
-    status, body = TrafficSpy::PayloadCreator.process(params)
+    status, body = TrafficSpy::PayloadCreator.process(params, params['id'])
 
     assert_equal 403, status
     assert_equal 'Application Not Registered', body
@@ -63,7 +63,7 @@ class PayloadCreatorTest < Minitest::Test
               "splat"=>[],
               "captures"=>["jumpstartlab"],
               "id"=>"jumpstartlab"}
-    status, body = TrafficSpy::PayloadCreator.process(params)
+    status, body = TrafficSpy::PayloadCreator.process(params, params['id'])
 
     assert_equal (total + 1), TrafficSpy::Payload.all.count
     assert_equal 200, status

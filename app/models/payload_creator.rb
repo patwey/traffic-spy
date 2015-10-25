@@ -1,7 +1,7 @@
 module TrafficSpy
   class PayloadCreator
-    def self.process(data)
-      if source_exists?(data['id'])
+    def self.process(data, identifier)
+      if source_exists?(identifier)
         state = create_payload(data)
       else
         state = :not_registered
@@ -37,8 +37,8 @@ module TrafficSpy
 
   private
 
-    def self.source_exists?(id)
-      Source.find_by(identifier: id)
+    def self.source_exists?(identifier)
+      Source.find_by(identifier: identifier)
     end
 
     def self.missing_payload?(payload)

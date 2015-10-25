@@ -39,7 +39,7 @@ class Minitest::Test
               "splat"=>[],
               "captures"=>["jumpstartlab"],
               "id"=>"jumpstartlab"}
-    TrafficSpy::PayloadCreator.process(params)
+    TrafficSpy::PayloadCreator.process(params, 'jumpstartlab')
     TrafficSpy::Payload.all.last
   end
 end
