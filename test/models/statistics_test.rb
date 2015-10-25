@@ -26,8 +26,7 @@ class StatisticsTest < Minitest::Test
     payloads = []
     payloads << create_payload({url: "jumpstartlab.com/blog"})
     payloads << create_payload({url: "jumpstartlab.com/home"})
-
-    user_agent_stats = TrafficSpy::Statistics.parse_user_agents(payloads)
+    user_agent_stats = TrafficSpy::Statistics.parse_user_agents(payloads.map { |pl| pl.user_agent })
 
     assert_equal [[["Safari", 2]], [["intel mac os x 10_8_2", 2]]], user_agent_stats
   end

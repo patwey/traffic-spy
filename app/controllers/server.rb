@@ -17,7 +17,6 @@ module TrafficSpy
     end
 
     get '/sources/:identifier' do |identifier|
-      # payloads = TrafficSpy::PayloadRetriever.retrieve(identifier)
       locals = TrafficSpy::Statistics.application_details(identifier)
       erb :application_details, locals: locals
     end

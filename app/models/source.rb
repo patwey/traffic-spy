@@ -4,4 +4,5 @@ class TrafficSpy::Source < ActiveRecord::Base
   has_many :urls, through: :payloads
   has_many :request_types, through: :payloads
   has_many :event_names, through: :payloads
+  has_many :user_agents
 end

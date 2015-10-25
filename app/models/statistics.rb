@@ -3,7 +3,7 @@ module TrafficSpy
     def self.application_details(identifier)
       payloads = Source.find_by(identifier: identifier).payloads
       urls = get_ranked_urls(payloads)
-      browsers, op_systems = parse_user_agents(payloads)
+      browsers, op_systems = parse_user_agents(payloads.map { |pl| pl.user_agent })
       resolutions = get_ranked_resolutions(payloads)
       response_times = get_avg_response_time_by_url(payloads)
       { identifier: identifier,
@@ -50,7 +50,8 @@ module TrafficSpy
       # get browsers
       browsers, op_systems = parse_user_agents(source.payloads
                                                      .where(url_id: Url.find_by(url: url)
-                                                     .id))
+                                                     .id)
+                                                     .map { |pl| pl.user_agent })
       { avg_response: avg_response,
         max_response: max_response,
         min_response: min_response,
@@ -110,8 +111,7 @@ module TrafficSpy
       op_systems = order_collection(raw_op_systems)
     end
 
-    def self.parse_user_agents(payloads)
-      user_agent_strings = payloads.map { |payload| payload.user_agent }
+    def self.parse_user_agents(user_agent_strings)
       user_agents = user_agent_strings.map { |string| UserAgent.parse(string) }
       browsers = get_ranked_browsers(user_agents)
       op_systems = get_ranked_op_systems(user_agents)
