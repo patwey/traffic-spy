@@ -1,41 +1,32 @@
 <div id="application-event-details" class="row"><br><br>
-  <!-- Data from event_names table -->
-  <!-- Need to link event details with event name below -->
-
   <div class="col s12 m12">
-          <div class="card blue-grey darken-1">
+    <div class="card blue-grey darken-1">
+      <div class="card-content white-text">
+        <div class="col s12 m12">
+          <div class="card teal darken-1">
             <div class="card-content white-text">
-
-              <div class="col s12 m6">
-                      <div class="card teal darken-1">
-                        <div class="card-content white-text">
-
-  <table class="highlight" id="event-name-statistics">
-    <h5>24-Hour Breakdown of Event Requests</h5>
-    <thead>
-      <tr>
-          <th data-field="hour">Hour</th>
-          <th data-field="count">Count</th>
-      </tr>
-    </thead>
-  ​
-    <tbody id=events-by-hour>
-      <% events_by_hour.each do |hour, count| %>
-      <tr>
-        <td><%= hour %></td>
-        <td><%= count %></td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
-    <div id="total-count"><p>Total: <%= total_count %></p></div>
-
+              <table id="event-name-statistics">
+                <h5>24-Hour Breakdown of Event Requests</h5>
+                  <thead>
+                    <tr>
+                        <th data-field="hour">Hour</th>
+                        <th data-field="count">Count</th>
+                    </tr>
+                  </thead>
+                  <tbody id=events-by-hour>
+                    <% events_by_hour.each do |hour, count| %>
+                    <tr>
+                      <td><%= hour %></td>
+                      <td><%= count %></td>
+                    </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              <div id="total-count"><p>Total: <%= total_count %></p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  </div>
-  </div>
-
-  </div>
-  </div>
-  </div>
-
 </div>

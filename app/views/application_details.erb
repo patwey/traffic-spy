@@ -1,188 +1,165 @@
 <div id="application-details" class="row"><br><br>
 
-  <!-- Data from URLs -->
-  <!-- make link for URL that points to payload hash, link to aggregate event data (see last 2 bullets on app details) -->
+      <!-- Data from URLs -->
+      <div class="col s12 m12">
+        <div class="card blue-grey darken-1">
+          <div class="card-content white-text">
+            <div class="col s12 m6">
+              <div class="card teal darken-1">
+                <div class="card-content white-text">
+                <table class="col s12" id="url-ranking">
+                  <h5>Most Requested URL's</h5>
+                  <thead>
+                    <tr>
+                        <th data-field="url">URL</th>
+                        <th data-field="count">Count</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% urls.each do |url, count| %>
+                    <tr>
+                      <td><%= url %></td>
+                      <td><%= count %></td>
+                    </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
 
+          <!-- Data from UserAgent -->
+          <div class="col s12 m6">
+            <div class="card teal darken-1">
+              <div class="card-content white-text">
+                <table class="col s12" id="web-browser-breakdown">
+                  <h5>Web Browser Breakdown</h5>
+                  <thead>
+                    <tr>
+                        <th data-field="browser">Browser</th>
+                        <th data-field="count">Count</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% browsers.each do |browser, count| %>
+                    <tr>
+                      <td><%= browser %></td>
+                      <td><%= count %></td>
+                    </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
 
-  <div class="col s12 m12">
-          <div class="card blue-grey darken-1">
-            <div class="card-content white-text">
+          <!-- Data from resolutionWidth x resolutionHeight -->
+          <div class="col s12 m6">
+            <div class="card teal darken-1">
+              <div class="card-content white-text">
+                <table class="col s12" id="screen-resolution">
+                  <h5>Screen Resolution</h5>
+                  <thead>
+                    <tr>
+                        <th data-field="resolution">Resolution</th>
+                        <th data-field="count">Count</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% resolutions.each do |os, count| %>
+                    <tr>
+                      <td><%= os %></td>
+                      <td><%= count %></td>
+                    </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
 
-  <div class="col s12 m6">
+          <!-- Data from respondedIn -->
+          <div class="col s12 m6">
+            <div class="card teal darken-1">
+              <div class="card-content white-text">
+              <table class="col s12" id="response-time">
+                <h5>URL by Response Time</h5>
+                <thead>
+                  <tr>
+                      <th data-field="url">URL</th>
+                      <th data-field="time">Time</th>
+                  </tr>
+                </thead>
+              ​
+                <tbody>
+                  <% response_times.each do |response_times, count| %>
+                  <tr>
+                    <td><%= response_times %></td>
+                    <td><%= count %></td>
+                  </tr>
+                  <% end %>
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Data from UserAgent -->
+        <div class="col s12 m12">
           <div class="card teal darken-1">
             <div class="card-content white-text">
-
-  <table class="col s12" id="url-ranking">
-    <h5>Most Requested URL's</h5>
-    <thead>
-      <tr>
-          <th data-field="url">URL</th>
-          <th data-field="count">Count</th>
-      </tr>
-    </thead>
-​
-    <tbody>
-      <% urls.each do |url, count| %>
-      <tr>
-        <td><%= url %></td>
-        <td><%= count %></td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
-
+              <table class="col s12" id="os-breakdown">
+                <h5>Operating System Breakdown</h5>
+                <thead>
+                  <tr>
+                      <th data-field="browser">Operating System</th>
+                      <th data-field="count">Count</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% op_systems.each do |os, count| %>
+                  <tr>
+                    <td><%= os %></td>
+                    <td><%= count %></td>
+                  </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  </div>
-  </div>
-
-  <div class="col s12 m6">
-          <div class="card teal darken-1">
-            <div class="card-content white-text">
-
-<!-- Data from UserAgent -->
-  <table class="col s12" id="web-browser-breakdown">
-    <h5>Web Browser Breakdown</h5>
-    <thead>
-      <tr>
-          <th data-field="browser">Browser</th>
-          <th data-field="count">Count</th>
-      </tr>
-    </thead>
-  ​
-    <tbody>
-      <% browsers.each do |browser, count| %>
-      <tr>
-        <td><%= browser %></td>
-        <td><%= count %></td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
-
-  </div>
-  </div>
-  </div>
-
-  <div class="col s12 m6">
-          <div class="card teal darken-1">
-            <div class="card-content white-text">
-
-<!-- Data from resolutionWidth x resolutionHeight -->
-  <table class="col s12" id="screen-resolution">
-    <h5>Screen Resolution</h5>
-    <thead>
-      <tr>
-          <th data-field="resolution">Resolution</th>
-          <th data-field="count">Count</th>
-      </tr>
-    </thead>
-  ​
-    <tbody>
-      <% resolutions.each do |os, count| %>
-      <tr>
-        <td><%= os %></td>
-        <td><%= count %></td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
-
-  </div>
-  </div>
-  </div>
-
-  <div class="col s12 m6">
-          <div class="card teal darken-1">
-            <div class="card-content white-text">
-
-  <!-- Data from respondedIn -->
-  <table class="col s12" id="response-time">
-    <h5>URL by Response Time</h5>
-    <thead>
-      <tr>
-          <th data-field="url">URL</th>
-          <th data-field="time">Time</th>
-      </tr>
-    </thead>
-  ​
-    <tbody>
-      <% response_times.each do |response_times, count| %>
-      <tr>
-        <td><%= response_times %></td>
-        <td><%= count %></td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
-
-  </div>
-  </div>
-  </div>
-
-  <div class="col s12 m12">
-          <div class="card teal darken-1">
-            <div class="card-content white-text">
-
-<!-- Data from UserAgent -->
-  <table class="col s12" id="os-breakdown">
-    <h5>Operating System Breakdown</h5>
-    <thead>
-      <tr>
-          <th data-field="browser">Operating System</th>
-          <th data-field="count">Count</th>
-      </tr>
-    </thead>
-  ​
-    <tbody>
-      <% op_systems.each do |os, count| %>
-      <tr>
-        <td><%= os %></td>
-        <td><%= count %></td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
-
-  </div>
-  </div>
-  </div>
-
-</div>
-</div>
-</div>
-
-  <div class="col s12 m6">
-          <div class="card teal darken-1">
-            <div class="card-content white-text">
 
   <!-- Hyperlinks to url specific data -->
-  <div id='url-specific-data' class="col s12">
-    <h5> URL Specific Data</h5>
-    <% urls.each do |url, _| %>
-      <a href="/sources/<%= identifier %>/urls/<%= url.split('.com/').last %>">
-        <%= url.split('//').last %>
-      </a><br>
-    <% end %>
-  </div>
-
-  </div>
-  </div>
-  </div>
-
   <div class="col s12 m6">
-          <div class="card teal darken-1">
-            <div class="card-content white-text">
+    <div class="card teal darken-1">
+      <div class="card-content white-text">
+        <div id='url-specific-data' class="col s12">
+          <h5> URL Specific Data</h5>
+          <% urls.each do |url, _| %>
+            <a href="/sources/<%= identifier %>/urls/<%= url.split('.com/').last %>">
+              <%= url.split('//').last %>
+            </a><br>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Hyperlinks to aggregate event data -->
-  <div id='aggregate-event-data' class="col s12">
-    <h5> Aggregate Event Data</h5>
-      <a href="/sources/<%= identifier %>/events">
-        <%= identifier %>
-      </a><br>
+  <div class="col s12 m6">
+    <div class="card teal darken-1">
+      <div class="card-content white-text">
+        <div id='aggregate-event-data' class="col s12">
+          <h5> Aggregate Event Data</h5>
+            <a href="/sources/<%= identifier %>/events">
+              <%= identifier %>
+            </a><br>
+        </div>
+      </div>
+    </div>
   </div>
-
-  </div>
-  </div>
-  </div>
-
 </div>
