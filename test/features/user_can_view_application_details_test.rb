@@ -2,15 +2,13 @@ require './test/test_helper'
 class ViewApplicationDetailsTest < FeatureTest
 
   def test_it_returns_error_page_if_identifier_does_not_exist
-    skip
     create_source
     create_payload({url: "http://jumpstartlab.com/tyler"})
     create_payload({url: 'http://jumpstartlab.com/blog'})
     create_payload({url: 'http://jumpstartlab.com/blog', requested_at: Time.now})
 
-    visit '/sources/jumpstartlab'
-    assert_equal '/sources/jumpstartlab', current_path
-
+    visit '/sources/BADIDENTIFIER'
+    
     assert page.has_content?("Identifier doesn't exist")
   end
 
