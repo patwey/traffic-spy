@@ -24,7 +24,7 @@
       <% else %>
         <% event_names.each do |event, count| %>
         <tr>
-          <td><a href="sources/<%= identifier %>/events/<%= event %>"><%= event %></a></td>
+          <td><a href="/sources/<%= identifier %>/events/<%= event %>"><%= event %></a></td>
           <td><%= count %></td>
         </tr>
         <% end %>
