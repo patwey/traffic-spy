@@ -1,124 +1,102 @@
 <div id="application-url-statistics" class="row"><br><br>
-
   <div class="col s12 m12">
-          <div class="card blue-grey darken-1">
-            <div class="card-content white-text">
+    <div class="card blue-grey darken-1">
+      <div class="card-content white-text">
 
-
-    <div class="col s12 m6">
-            <div class="card teal darken-1">
-              <div class="card-content white-text">
-
-  <!-- Min, Max, Avg data on URL specific response times (responded_in from payloads) -->
-  <table class="" id="url-response-times">
-    <h5>URL Response Time</h5>
-    <thead>
-      <tr>
-          <th data-field="longest-time">Longest Response</th>
-          <th data-field="shortest-time">Shortest Response</th>
-          <th data-field="avg-time">Average Response</th>
-      </tr>
-    </thead>
-​
-    <tbody id="url-statistics">
-      <tr>
-        <td><%= avg_response %></td>
-        <td><%= min_response %></td>
-        <td><%= max_response %></td>
-      </tr>
-    </tbody>
-  </table>
-
-  </div>
-  </div>
-  </div>
-
-  <div class="col s12 m6">
+        <div class="col s12 m6">
           <div class="card teal darken-1">
             <div class="card-content white-text">
+              <table id="url-response-times">
+                <h5>URL Response Time</h5>
+                <thead>
+                  <tr>
+                    <th data-field="longest-time">Longest Response</th>
+                    <th data-field="shortest-time">Shortest Response</th>
+                    <th data-field="avg-time">Average Response</th>
+                  </tr>
+                </thead>
+                <tbody id="url-statistics">
+                  <tr>
+                    <td><%= avg_response %></td>
+                    <td><%= min_response %></td>
+                    <td><%= max_response %></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
 
-  <!-- Most common HTTP Verbs (request_types table) -->
-  <table class="" id="most-common-request-types">
-    <h5>Most Common Request Types</h5>
-    <thead>
-      <tr>
-          <th data-field="http-verb">HTTP Verb</th>
-      </tr>
-    </thead>
-​
-    <tbody id="http-verb-statistics">
-      <% request_types.each do |verb| %>
-      <tr>
-        <td><%= verb.upcase %></td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
-
-  </div>
-  </div>
-  </div>
-
-
-  <div class="col s12 m6">
+        <div class="col s12 m6">
           <div class="card teal darken-1">
             <div class="card-content white-text">
+              <table id="most-common-request-types">
+                <h5>Most Common Request Types</h5>
+                <thead>
+                  <tr>
+                      <th data-field="http-verb">HTTP Verb</th>
+                  </tr>
+                </thead>
+                <tbody id="http-verb-statistics">
+                  <% request_types.each do |verb| %>
+                  <tr>
+                    <td><%= verb.upcase %></td>
+                  </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
 
-  <!-- Most Popular Referrers (referred_by in Payloads table) -->
-  <table class="" id="most-popular-referrers">
-    <h5>Most Popular Referrers</h5>
-    <thead>
-      <tr>
-          <th data-field="referrer">Referrer</th>
-          <th data-field="count">Count</th>
-      </tr>
-    </thead>
-​
-    <tbody id="referred-by-statistics">
-      <% referred_by.each do |referrer, count| %>
-      <tr>
-        <td><%= referrer %></td>
-        <td><%= count %></td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
-
-  </div>
-  </div>
-  </div>
-
-
-  <div class="col s12 m6">
+        <div class="col s12 m6">
           <div class="card teal darken-1">
             <div class="card-content white-text">
+              <table id="most-popular-referrers">
+                <h5>Most Popular Referrers</h5>
+                <thead>
+                  <tr>
+                    <th data-field="referrer">Referrer</th>
+                    <th data-field="count">Count</th>
+                  </tr>
+                </thead>
+                <tbody id="referred-by-statistics">
+                  <% referred_by.each do |referrer, count| %>
+                  <tr>
+                    <td><%= referrer %></td>
+                    <td><%= count %></td>
+                  </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
 
-  <!-- Most Popular UserAgents (user_agent in Payloads table) -->
-  <table class="" id="most-popular-user-agents">
-    <h5>Most Popular User Agents</h5>
-    <thead>
-      <tr>
-          <th data-field="user-agent">User Agent</th>
-          <th data-field="count">Count</th>
-      </tr>
-    </thead>
-​
-    <tbody id='user-agent-statistics'>
-      <% user_agents.each do |user_agent, count| %>
-      <tr>
-        <td><%= user_agent %></td>
-        <td><%= count %></td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
-
+        <div class="col s12 m6">
+          <div class="card teal darken-1">
+            <div class="card-content white-text">
+            <table id="most-popular-user-agents">
+              <h5>Most Popular User Agents</h5>
+                <thead>
+                  <tr>
+                    <th data-field="user-agent">User Agent</th>
+                    <th data-field="count">Count</th>
+                  </tr>
+                </thead>
+                <tbody id='user-agent-statistics'>
+                  <% user_agents.each do |user_agent, count| %>
+                  <tr>
+                    <td><%= user_agent %></td>
+                    <td><%= count %></td>
+                  </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  </div>
-  </div>
-
-</div>
-</div>
-</div>
-
 </div>
