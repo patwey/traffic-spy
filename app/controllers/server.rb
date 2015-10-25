@@ -38,6 +38,10 @@ module TrafficSpy
       erb :application_event_details, locals: locals
     end
 
+    get '/sources/:identifier/events/:event_name/campaigns' do |identifier|
+      erb :register_campaign
+    end
+
     not_found do
       erb :error
     end
