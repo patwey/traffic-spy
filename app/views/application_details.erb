@@ -30,26 +30,26 @@
           <div class="col s12 m6">
             <div class="card teal darken-1">
               <div class="card-content white-text">
-                <table class="col s12" id="web-browser-breakdown">
-                  <h5>Web Browser Breakdown</h5>
-                  <thead>
-                    <tr>
-                      <th data-field="browser">Browser</th>
-                      <th data-field="count">Count</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <% browsers.each do |browser, count| %>
-                    <tr>
-                      <td><%= browser %></td>
-                      <td><%= count %></td>
-                    </tr>
-                    <% end %>
-                  </tbody>
-                </table>
-              </div>
+              <table class="col s12" id="response-time">
+                <h5>URL by Response Time</h5>
+                <thead>
+                  <tr>
+                    <th data-field="url">URL</th>
+                    <th data-field="time">Time</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% response_times.each do |response_times, count| %>
+                  <tr>
+                    <td><%= response_times %></td>
+                    <td><%= count %></td>
+                  </tr>
+                  <% end %>
+                </tbody>
+              </table>
             </div>
           </div>
+        </div>
 
           <div class="col s12 m6">
             <div class="card teal darken-1">
@@ -78,28 +78,26 @@
           <div class="col s12 m6">
             <div class="card teal darken-1">
               <div class="card-content white-text">
-              <table class="col s12" id="response-time">
-                <h5>URL by Response Time</h5>
-                <thead>
-                  <tr>
-                    <th data-field="url">URL</th>
-                    <th data-field="time">Time</th>
-                  </tr>
-                </thead>
-              ​
-                <tbody>
-                  <% response_times.each do |response_times, count| %>
-                  <tr>
-                    <td><%= response_times %></td>
-                    <td><%= count %></td>
-                  </tr>
-                  <% end %>
-                </tbody>
-              </table>
-
+                <table class="col s12" id="web-browser-breakdown">
+                  <h5>Web Browser Breakdown</h5>
+                  <thead>
+                    <tr>
+                      <th data-field="browser">Browser</th>
+                      <th data-field="count">Count</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% browsers.each do |browser, count| %>
+                    <tr>
+                      <td><%= browser %></td>
+                      <td><%= count %></td>
+                    </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
-        </div>
 
         <div class="col s12 m12">
           <div class="card teal darken-1">
@@ -124,12 +122,9 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
 
-  <div class="col s12 m6">
-    <div class="card teal darken-1">
+  <div class="col s12 m6" id="background-card-margin">
+    <div class="card teal darken-1" id="app-detail-padding">
       <div class="card-content white-text">
         <div id='url-specific-data' class="col s12">
           <h5> URL Specific Data</h5>
@@ -143,8 +138,8 @@
     </div>
   </div>
 
-  <div class="col s12 m6">
-    <div class="card teal darken-1">
+  <div class="col s12 m6" id="background-card-margin">
+    <div class="card teal darken-1" id="app-detail-padding">
       <div class="card-content white-text">
         <div id='aggregate-event-data' class="col s12">
           <h5> Aggregate Event Data</h5>
@@ -155,4 +150,8 @@
       </div>
     </div>
   </div>
+
+</div>
+</div>
+</div>
 </div>
